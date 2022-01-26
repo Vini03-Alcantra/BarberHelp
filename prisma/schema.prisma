@@ -20,10 +20,10 @@ model Owner {
 }
 
 model Address {
-  id              String @id @default(uuid())
+  id              String  @id @default(uuid())
   street          String
   number_address  Int
-  complement      String
+  complement      String?
   neighborhood    String
   city            String
   state           String
@@ -34,10 +34,10 @@ model Address {
 }
 
 model AddressClient {
-  id              String @id @default(uuid())
+  id              String  @id @default(uuid())
   street          String
   number_address  Int
-  complement      String
+  complement      String?
   neighborhood    String
   city            String
   state           String
