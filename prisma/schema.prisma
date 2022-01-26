@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Owner {
+  id              String   @id @default(uuid())
+  nome            String
+  cpf             String   @unique
+  birthday        DateTime
+  email           String   @unique
+  phoneNumber     String
+  register_system DateTime @default(now())
+
+  @@map("owner")
+}
+
+model Address {
+  id              String @id @default(uuid())
+  street          String
+  number_address  Int
+  complement      String
+  neighborhood    String
+  city            String
+  state           String
+  cep             String
+  reference_point String
+
+  @@map("address")
+}
+
+model AddressClient {
+  id              String @id @default(uuid())
+  street          String
+  number_address  Int
+  complement      String
+  neighborhood    String
+  city            String
+  state           String
+  cep             String
+  reference_point String
+
+  @@map("address_client")
+}
