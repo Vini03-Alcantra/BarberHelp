@@ -73,7 +73,7 @@ model Client {
   id              String        @id @default(uuid())
   nome            String
   cpf             String        @unique
-  birthday        DateTime
+  birthday        String
   lastCut         DateTime      @default(now())
   phoneNumber     String
   password        String
