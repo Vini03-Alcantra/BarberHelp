@@ -17,6 +17,7 @@ model Owner {
   register_system DateTime        @default(now())
   password        String
   establishment   Establishment[]
+  created_at      DateTime        @default(now())
 
   @@map("owner")
 }
@@ -32,12 +33,13 @@ model Address {
   cep             String
   reference_point String
   establishment   Establishment?
+  created_at      DateTime       @default(now())
 
   @@map("address")
 }
 
 model AddressClient {
-  id              String  @id @default(uuid())
+  id              String   @id @default(uuid())
   street          String
   number_address  Int
   complement      String?
@@ -47,24 +49,29 @@ model AddressClient {
   cep             String
   reference_point String
   client          Client?
+  created_at      DateTime @default(now())
 
   @@map("address_client")
 }
 
 model Establishment {
-  id                String   @id @default(uuid())
+  id                String     @id @default(uuid())
   name              String
   phoneContact      String
-  email_contact     String   @unique
+  email_contact     String     @unique
   start_hour        String
   end_hour          String
   stop_hour_lunch   String
   return_hour_lunch String
-  register_system   DateTime @default(now())
-  Owner             Owner    @relation(fields: [fk_owner_id], references: [id])
+  register_system   DateTime   @default(now())
+  Owner             Owner      @relation(fields: [fk_owner_id], references: [id])
   fk_owner_id       String
-  Address           Address  @relation(fields: [fk_id_address], references: [id])
-  fk_id_address     String   @unique
+  Address           Address    @relation(fields: [fk_id_address], references: [id])
+  fk_id_address     String     @unique
+  employee          Employee[]
+  services          Services[]
+  ordered           Ordered[]
+  created_at        DateTime   @default(now())
 
   @@map("establishment")
 }
@@ -80,4 +87,57 @@ model Client {
   register_system DateTime      @default(now())
   AddressClient   AddressClient @relation(fields: [fk_id_address], references: [id])
   fk_id_address   String        @unique
+  ordered         Ordered[]
+  created_at      DateTime      @default(now())
+}
+
+model Employee {
+  id                  String        @id @default(uuid())
+  nome                String
+  cpf                 String        @unique
+  birthday            String
+  start_hour          String
+  end_hour            String
+  stop_hour_lunch     String
+  return_hour_lunch   String
+  fk_establishment_id String
+  establishment       Establishment @relation(fields: [fk_establishment_id], references: [id])
+  Ordered             Ordered[]
+  created_at          DateTime      @default(now())
+}
+
+model Services {
+  id                  String             @id @default(uuid())
+  nome                String
+  type                String
+  duration            Float
+  price               Float
+  description         String
+  fk_establishment_id String
+  establishment       Establishment      @relation(fields: [fk_establishment_id], references: [id])
+  ordered_Services    Ordered_Services[]
+  created_at          DateTime           @default(now())
+}
+
+model Ordered {
+  id                  String             @id @default(uuid())
+  appointment         DateTime
+  appointmentNow      DateTime           @default(now())
+  fk_client_id        String
+  client              Client             @relation(fields: [fk_client_id], references: [id])
+  fk_establishment_id String
+  establishment       Establishment      @relation(fields: [fk_establishment_id], references: [id])
+  fk_employee_id      String
+  employee            Employee           @relation(fields: [fk_employee_id], references: [id])
+  ordered_Services    Ordered_Services[]
+  created_at          DateTime           @default(now())
+}
+
+model Ordered_Services {
+  id            String   @id @default(uuid())
+  service       Services @relation(fields: [fk_id_service], references: [id])
+  fk_id_service String
+  ordered       Ordered  @relation(fields: [fk_id_ordered], references: [id])
+  fk_id_ordered String
+  created_at    DateTime @default(now())
 }
