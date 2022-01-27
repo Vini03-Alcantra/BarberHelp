@@ -8,19 +8,21 @@ datasource db {
 }
 
 model Owner {
-  id              String   @id @default(uuid())
+  id              String          @id @default(uuid())
   nome            String
-  cpf             String   @unique
+  cpf             String          @unique
   birthday        DateTime
-  email           String   @unique
+  email           String          @unique
   phoneNumber     String
-  register_system DateTime @default(now())
+  register_system DateTime        @default(now())
+  password        String
+  establishment   Establishment[]
 
   @@map("owner")
 }
 
 model Address {
-  id              String  @id @default(uuid())
+  id              String         @id @default(uuid())
   street          String
   number_address  Int
   complement      String?
@@ -29,6 +31,7 @@ model Address {
   state           String
   cep             String
   reference_point String
+  establishment   Establishment?
 
   @@map("address")
 }
@@ -43,6 +46,38 @@ model AddressClient {
   state           String
   cep             String
   reference_point String
+  client          Client?
 
   @@map("address_client")
+}
+
+model Establishment {
+  id                String   @id @default(uuid())
+  name              String
+  phoneContact      String
+  email_contact     String   @unique
+  start_hour        String
+  end_hour          String
+  stop_hour_lunch   String
+  return_hour_lunch String
+  register_system   DateTime @default(now())
+  Owner             Owner    @relation(fields: [fk_owner_id], references: [id])
+  fk_owner_id       String
+  Address           Address  @relation(fields: [fk_id_address], references: [id])
+  fk_id_address     String   @unique
+
+  @@map("establishment")
+}
+
+model Client {
+  id              String        @id @default(uuid())
+  nome            String
+  cpf             String        @unique
+  birthday        DateTime
+  lastCut         DateTime      @default(now())
+  phoneNumber     String
+  password        String
+  register_system DateTime      @default(now())
+  AddressClient   AddressClient @relation(fields: [fk_id_address], references: [id])
+  fk_id_address   String        @unique
 }
