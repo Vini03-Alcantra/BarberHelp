@@ -81,6 +81,7 @@ class OwnerRepository implements IOwnerRepository {
         phoneNumber
     }: ICreateOwnerDTO): Promise<void> {
         const id = await this.findById(user_id)
+        console.log(new Date())
 
         if (!(id)) {
             return
@@ -96,7 +97,7 @@ class OwnerRepository implements IOwnerRepository {
                 birthday,
                 email,
                 phoneNumber,
-                updated_at: "2022-01-27T23:52:26.644Z"
+                updated_at: new Date()
             }
         })
     }
