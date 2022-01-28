@@ -12,7 +12,13 @@ class ReadOwnerController {
         try {
             const owner = await readOwnerUseCase.execute(id)
 
-            return res.status(200).json(owner)
+            if (!(owner)) {
+                res.status(400).json({})
+            }
+
+            return res.status(200).json({
+                owner
+            })
         } catch (error) {
             return res.status(400).json()
         }
