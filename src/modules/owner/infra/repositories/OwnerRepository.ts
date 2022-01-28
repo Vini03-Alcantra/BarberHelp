@@ -1,4 +1,5 @@
 import { Owner, PrismaClient } from "@prisma/client";
+import { compare } from "bcrypt";
 import { ICreateOwnerDTO } from "../../dtos/ICreateOwnerDTO";
 import { IOwnerRepository } from "../../repositories/IOwnerRepository";
 
@@ -41,6 +42,29 @@ class OwnerRepository implements IOwnerRepository {
         })
 
         return owner
+    }
+
+    async delete(email: string, password: string): Promise<boolean> {
+        const Owner = await prisma.owner.findFirst({
+            where: { email }
+        })
+
+        if (!(Owner)) {
+            return false
+        }
+
+        const passwordOwner = await compare(password, Owner.password)
+
+        if (!(passwordOwner)) {
+            return false
+        }
+
+        await prisma.owner.delete({
+            where: { id: Owner.id }
+        })
+
+        return true
+
     }
 
 }

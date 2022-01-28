@@ -1,7 +1,7 @@
 interface ICreateOwnerDTO {
     nome: string
     cpf: string
-    birthday: Date
+    birthday: string
     email: string
     phoneNumber: string
     password: string
