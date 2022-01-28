@@ -11,7 +11,7 @@ model Owner {
   id              String          @id @default(uuid())
   nome            String
   cpf             String          @unique
-  birthday        DateTime
+  birthday        String
   email           String          @unique
   phoneNumber     String
   register_system DateTime        @default(now())
