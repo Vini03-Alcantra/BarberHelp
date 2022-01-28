@@ -1,4 +1,5 @@
 import { Owner, PrismaClient } from "@prisma/client";
+import { compare } from "bcrypt";
 import { ICreateOwnerDTO } from "../../dtos/ICreateOwnerDTO";
 import { IOwnerRepository } from "../../repositories/IOwnerRepository";
 
@@ -13,7 +14,7 @@ class OwnerRepository implements IOwnerRepository {
         phoneNumber,
         password
     }: ICreateOwnerDTO): Promise<void> {
-        const owner = await prisma.owner.create({
+        await prisma.owner.create({
             data: {
                 nome: nome,
                 cpf: cpf,
@@ -23,13 +24,11 @@ class OwnerRepository implements IOwnerRepository {
                 password: password
             }
         })
-
-        console.log("CreateOwner", owner)
     }
 
     async findByCPF(cpf: string): Promise<Owner | null> {
         const owner = await prisma.owner.findFirst({
-            where: { cpf }
+            where: { cpf },
         })
 
         return owner
@@ -41,6 +40,84 @@ class OwnerRepository implements IOwnerRepository {
         })
 
         return owner
+    }
+
+    async findById(id: string): Promise<Omit<ICreateOwnerDTO, "password"> | null> {
+        const owner = await prisma.owner.findFirst({
+            where: { id },
+        })
+
+        if (!(owner)) {
+            return null
+        }
+
+        const nome = owner.nome;
+        const email = owner.email;
+        const phoneNumber = owner.phoneNumber;
+        const cpf = owner.cpf;
+        const birthday = owner.birthday;
+
+        const ownerRes = {
+            nome,
+            email,
+            phoneNumber,
+            cpf,
+            birthday
+        }
+
+        return ownerRes
+    }
+
+    async delete(email: string, password: string): Promise<boolean> {
+        const Owner = await prisma.owner.findFirst({
+            where: { email }
+        })
+
+        if (!(Owner)) {
+            return false
+        }
+
+        const passwordOwner = await compare(password, Owner.password)
+
+        if (!(passwordOwner)) {
+            return false
+        }
+
+        await prisma.owner.delete({
+            where: { id: Owner.id }
+        })
+
+        return true
+
+    }
+
+    async update(user_id: string, {
+        nome,
+        cpf,
+        birthday,
+        email,
+        phoneNumber
+    }: ICreateOwnerDTO): Promise<void> {
+        const id = await this.findById(user_id)
+        console.log(new Date())
+
+        if (!(id)) {
+            return
+        }
+
+        await prisma.owner.update({
+            where: {
+                id: user_id,
+            },
+            data: {
+                nome,
+                cpf,
+                birthday,
+                email,
+                phoneNumber,
+                updated_at: new Date()
+            }
+        })
     }
 
 }
