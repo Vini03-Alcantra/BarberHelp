@@ -1,13 +1,13 @@
-import { PrismaClient } from "@prisma/client";
+// import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient()
+// const prisma = new PrismaClient()
 
-async function main() {
-    const result = await prisma.client.findMany({
-        include: {
-            AddressClient: true
-        }
-    })
-}
+// async function main() {
+//     const result = await prisma.client.findMany({
+//         include: {
+//             AddressClient: true
+//         }
+//     })
+// }
 
-main()
+// main()

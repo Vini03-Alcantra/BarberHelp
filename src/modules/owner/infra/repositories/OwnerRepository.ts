@@ -85,7 +85,7 @@ class OwnerRepository implements IOwnerRepository {
         if (!(id)) {
             return
         }
-        console.log(id)
+
         await prisma.owner.update({
             where: {
                 id: user_id,
@@ -95,7 +95,8 @@ class OwnerRepository implements IOwnerRepository {
                 cpf,
                 birthday,
                 email,
-                phoneNumber
+                phoneNumber,
+                updated_at: "2022-01-27T23:52:26.644Z"
             }
         })
     }

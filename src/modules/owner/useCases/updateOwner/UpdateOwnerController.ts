@@ -5,13 +5,11 @@ import { UpdateOwnerUseCase } from "./UpdateOwnerUseCase";
 
 class UpdateOwnerController {
     async handle(req: Request, res: Response): Promise<Response> {
-        //const { id } = req.params;
         const { id, nome, cpf, birthday, email, phoneNumber } = req.body;
 
         const updateOwnerUseCase = container.resolve(UpdateOwnerUseCase)
 
         try {
-            console.log(id)
             await updateOwnerUseCase.execute(
                 id,
                 {

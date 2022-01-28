@@ -18,6 +18,8 @@ model Owner {
   password        String
   establishment   Establishment[]
   created_at      DateTime        @default(now())
+  updated_at      DateTime?
+  lastLogin       String?
 
   @@map("owner")
 }
