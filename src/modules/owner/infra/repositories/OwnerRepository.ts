@@ -14,7 +14,7 @@ class OwnerRepository implements IOwnerRepository {
         phoneNumber,
         password
     }: ICreateOwnerDTO): Promise<void> {
-        const owner = await prisma.owner.create({
+        await prisma.owner.create({
             data: {
                 nome: nome,
                 cpf: cpf,
@@ -24,8 +24,6 @@ class OwnerRepository implements IOwnerRepository {
                 password: password
             }
         })
-
-        console.log("CreateOwner", owner)
     }
 
     async findByCPF(cpf: string): Promise<Owner | null> {
@@ -39,6 +37,14 @@ class OwnerRepository implements IOwnerRepository {
     async findByEmail(email: string): Promise<Owner | null> {
         const owner = await prisma.owner.findFirst({
             where: { email }
+        })
+
+        return owner
+    }
+
+    async findById(id: string): Promise<Owner | null> {
+        const owner = await prisma.owner.findFirst({
+            where: { id }
         })
 
         return owner
@@ -65,6 +71,33 @@ class OwnerRepository implements IOwnerRepository {
 
         return true
 
+    }
+
+    async update(user_id: string, {
+        nome,
+        cpf,
+        birthday,
+        email,
+        phoneNumber
+    }: ICreateOwnerDTO): Promise<void> {
+        const id = await this.findById(user_id)
+
+        if (!(id)) {
+            return
+        }
+        console.log(id)
+        await prisma.owner.update({
+            where: {
+                id: user_id,
+            },
+            data: {
+                nome,
+                cpf,
+                birthday,
+                email,
+                phoneNumber
+            }
+        })
     }
 
 }

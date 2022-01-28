@@ -8,8 +8,6 @@ async function main() {
             AddressClient: true
         }
     })
-
-    console.log(result)
 }
 
 main()
