@@ -35,23 +35,25 @@ model Address {
   cep             String
   reference_point String
   establishment   Establishment?
+  updated_at      DateTime?      @default(now())
   created_at      DateTime       @default(now())
 
   @@map("address")
 }
 
 model AddressClient {
-  id              String   @id @default(uuid())
+  id              String    @id @default(uuid())
   street          String
   number_address  Int
   complement      String?
   neighborhood    String
   city            String
+  reference_point String
   state           String
   cep             String
-  reference_point String
   client          Client?
-  created_at      DateTime @default(now())
+  updated_at      DateTime? @default(now())
+  created_at      DateTime  @default(now())
 
   @@map("address_client")
 }
