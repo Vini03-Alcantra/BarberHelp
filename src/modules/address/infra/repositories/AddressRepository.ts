@@ -43,8 +43,39 @@ class AddressRepository implements IAddressRepository {
 
         return address
     }
-    update(id: string, data: ICreateAddressDTO): Promise<void> {
-        throw new Error("Method not implemented.");
+    async update(address_id: string, {
+        street,
+        number_address,
+        complement,
+        neighborhood,
+        city,
+        state,
+        cep,
+        reference_point
+    }: ICreateAddressDTO): Promise<void> {
+        const address = await prisma.address.update({
+            where: {
+                id: address_id
+            },
+            data: {
+                street,
+                number_address,
+                complement,
+                neighborhood,
+                city,
+                state,
+                cep,
+                reference_point,
+                updated_at: new Date()
+            }
+        })
+
+        if (!(address)) {
+            return
+        }
+
+
+
     }
     delete(id: string): Promise<void> {
         throw new Error("Method not implemented.");
