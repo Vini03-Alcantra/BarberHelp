@@ -16,7 +16,7 @@ class AddressRepository implements IAddressRepository {
         reference_point
     }: ICreateAddressDTO): Promise<void> {
         try {
-            const result = await prisma.address.create({
+            await prisma.address.create({
                 data: {
                     street,
                     number_address,
