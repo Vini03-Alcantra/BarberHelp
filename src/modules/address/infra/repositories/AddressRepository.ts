@@ -77,8 +77,25 @@ class AddressRepository implements IAddressRepository {
 
 
     }
-    delete(id: string): Promise<void> {
-        throw new Error("Method not implemented.");
+
+    async delete(id: string): Promise<boolean> {
+        const address = await prisma.address.findFirst({
+            where: { id }
+        })
+
+        if (!(address)) {
+            return false
+        }
+
+        const addressDeleted = await prisma.address.delete({
+            where: { id }
+        })
+
+        if (!(addressDeleted)) {
+            return false
+        }
+
+        return true
     }
 }
 

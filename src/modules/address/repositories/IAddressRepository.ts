@@ -5,7 +5,7 @@ interface IAddressRepository {
     create(data: ICreateAddressDTO): Promise<void>;
     findById(id: string): Promise<Address | null>;
     update(id: string, data: ICreateAddressDTO): Promise<void>;
-    delete(id: string): Promise<void>;
+    delete(id: string): Promise<boolean>;
 }
 
 export { IAddressRepository }
