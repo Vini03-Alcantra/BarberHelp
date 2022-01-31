@@ -99,7 +99,6 @@ class OwnerRepository implements IOwnerRepository {
         phoneNumber
     }: ICreateOwnerDTO): Promise<void> {
         const id = await this.findById(user_id)
-        console.log(new Date())
 
         if (!(id)) {
             return
