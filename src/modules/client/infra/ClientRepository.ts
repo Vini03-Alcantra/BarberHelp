@@ -39,8 +39,12 @@ class ClientRepository implements IClientRepository {
         console.log(result)
     }
 
-    findByCPF(cpf: string): Promise<Client | null> {
-        throw new Error("Method not implemented.");
+    async findByCPF(cpf: string): Promise<Client | null> {
+        const client = await prisma.client.findFirst({
+            where: { cpf }
+        })
+
+        return client
     }
 
     findByEmail(email: string): Promise<Client | null> {
