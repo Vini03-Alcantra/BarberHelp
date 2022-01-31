@@ -59,8 +59,29 @@ class ClientRepository implements IClientRepository {
         return client
     }
 
-    delete(email: string, password: string): Promise<boolean> {
-        throw new Error("Method not implemented.");
+    async delete(email: string, password: string): Promise<boolean> {
+        console.log(email)
+        const client = await prisma.client.findFirst({
+            where: { email }
+        })
+
+        console.log(client)
+
+        if (!(client)) {
+            return false
+        }
+
+        const passwordClient = compare(password, client.password)
+
+        if (!(passwordClient)) {
+            return false
+        }
+
+        await prisma.client.delete({
+            where: { id: client.id }
+        })
+
+        return true
     }
 
     async update(user_id: string, {

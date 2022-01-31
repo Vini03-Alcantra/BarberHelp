@@ -1,3 +1,4 @@
+import { hash } from "bcrypt";
 import { inject, injectable } from "tsyringe";
 import { ICreateClientDTO } from "../../dtos/ICreateClient";
 import { IClientRepository } from "../../repositories/IClientRepository";
@@ -19,6 +20,7 @@ class CreateClientUseCase {
             phoneNumber,
             password
         }: ICreateClientDTO) {
+        const passwordHash = await hash(password, 10)
         await this.clientRepository.create(
             id_address,
             {
@@ -27,7 +29,7 @@ class CreateClientUseCase {
                 cpf,
                 birthday,
                 phoneNumber,
-                password
+                password: passwordHash
             }
         )
     }
