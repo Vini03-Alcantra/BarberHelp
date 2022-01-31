@@ -51,16 +51,44 @@ class ClientRepository implements IClientRepository {
         throw new Error("Method not implemented.");
     }
 
-    findById(id: string): Promise<Omit<ICreateClientDTO, "password"> | null> {
-        throw new Error("Method not implemented.");
+    async findById(id: string): Promise<Omit<ICreateClientDTO, "password"> | null> {
+        const client = await prisma.client.findFirst({
+            where: { id }
+        })
+
+        return client
     }
 
     delete(email: string, password: string): Promise<boolean> {
         throw new Error("Method not implemented.");
     }
 
-    update(user_id: string, data: Omit<ICreateClientDTO, "password">): Promise<void> {
-        throw new Error("Method not implemented.");
+    async update(user_id: string, {
+        nome,
+        email,
+        cpf,
+        birthday,
+        phoneNumber
+    }: Omit<ICreateClientDTO, "password">): Promise<void> {
+        const id = await this.findById(user_id)
+
+        if (!(id)) {
+            throw new Error("ID don't fond")
+        }
+
+        await prisma.client.update({
+            where: {
+                id: user_id
+            },
+            data: {
+                nome,
+                email,
+                cpf,
+                birthday,
+                phoneNumber,
+                updated_at: new Date()
+            }
+        })
     }
 
 }

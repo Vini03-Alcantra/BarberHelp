@@ -92,6 +92,7 @@ model Client {
   AddressClient AddressClient? @relation(fields: [fk_id_address], references: [id])
   fk_id_address String?        @unique
   ordered       Ordered[]
+  updated_at    DateTime?      @default(now())
   created_at    DateTime       @default(now())
 }
 
