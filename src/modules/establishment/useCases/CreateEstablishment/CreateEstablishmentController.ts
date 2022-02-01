@@ -1,0 +1,5 @@
+class CreateEstablishmentController {
+
+}
+
+export { CreateEstablishmentController }
