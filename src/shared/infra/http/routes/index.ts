@@ -5,6 +5,7 @@ import { addressRouter } from "./address.routes";
 import { clientRouter } from "./client.routes";
 import { establishmentRouter } from "./establishment.routes";
 import { employeeRouter } from "./employee.routes";
+import { servicesRouter } from "./services.routes";
 
 
 const router = Router()
@@ -15,5 +16,6 @@ router.use("/address", addressRouter)
 router.use("/client", clientRouter)
 router.use("/establishment", establishmentRouter)
 router.use("/employee", employeeRouter)
+router.use("/services", servicesRouter)
 
 export { router }
