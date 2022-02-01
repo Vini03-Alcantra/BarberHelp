@@ -2,7 +2,7 @@ import { Request, Response } from "express"
 import { container } from "tsyringe"
 import { DeleteEstablishmentUseCase } from "./DeleteEstablishmentUseCase";
 
-class DeleteClientController {
+class DeleteEstablishmentController {
     async handle(req: Request, res: Response): Promise<Response> {
         const { id } = req.body;
 
@@ -11,11 +11,11 @@ class DeleteClientController {
         try {
             await client.execute(id)
 
-            return res.status(201).json({ "msg": "Client Deleted success" })
+            return res.status(201).json({ "msg": "Establishment Deleted success" })
         } catch (error) {
-            return res.status(500).json({ "msg": "Don't possibel created Deleted" })
+            return res.status(500).json({ "msg": "Don't possibel establishment Deleted" })
         }
     }
 }
 
-export { DeleteClientController }
+export { DeleteEstablishmentController }

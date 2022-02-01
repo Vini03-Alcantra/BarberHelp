@@ -3,7 +3,7 @@ import { container } from "tsyringe"
 import { ReadEstablishmentUseCase } from "./ReadEstablishmentUseCase";
 
 
-class CreateEstablishmentController {
+class ReadEstablishmentController {
     async handle(req: Request, res: Response) {
         const { id } = req.body;
 
@@ -20,4 +20,4 @@ class CreateEstablishmentController {
     }
 }
 
-export { CreateEstablishmentController }
+export { ReadEstablishmentController }
