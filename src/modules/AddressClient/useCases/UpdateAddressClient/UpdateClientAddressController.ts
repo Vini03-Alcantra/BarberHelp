@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import { container } from "tsyringe"
 
-import { UpdateAddressUseCase } from "./UpdateAddressUseCase"
+import { UpdateAddressUseCase } from "./UpdateClientAddressUseCase"
 
 class UpdateAddressController {
     async handle(req: Request, res: Response) {

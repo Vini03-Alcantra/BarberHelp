@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import { container } from "tsyringe"
-import { ReadAddressUseCase } from "./ReadAddressUseCase"
+import { ReadAddressUseCase } from "./ReadClientAddressUseCase"
 
 
 
