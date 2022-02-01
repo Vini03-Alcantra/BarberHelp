@@ -9,11 +9,9 @@ class ReadServiceController {
         const readServiceUseCase = container.resolve(ReadServiceUseCase)
 
         try {
-            const service = await readServiceUseCase.execute(
-                id
-            )
+            const services = await readServiceUseCase.execute()
 
-            return res.status(200).json(service)
+            return res.status(200).json(services)
         } catch (error) {
             return res.status(500).json({ msg: "Não foi possível realizar a operação" })
         }

@@ -8,8 +8,8 @@ class ReadServiceUseCase {
         private serviceRepository: IServicesRepository
     ) { }
 
-    async execute(id: string) {
-        const address = this.serviceRepository.findById(id)
+    async execute() {
+        const address = this.serviceRepository.read()
 
         return address
     }
