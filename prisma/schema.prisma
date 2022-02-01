@@ -99,6 +99,8 @@ model Client {
 model Employee {
   id                  String        @id @default(uuid())
   nome                String
+  email               String        @unique
+  phoneNumber         String        @unique
   cpf                 String        @unique
   birthday            String
   start_hour          String

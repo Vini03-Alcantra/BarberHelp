@@ -3,6 +3,8 @@ import { AddressRepository } from "../../modules/address/infra/repositories/Addr
 import { IAddressRepository } from "../../modules/address/repositories/IAddressRepository";
 import { ClientRepository } from "../../modules/client/infra/ClientRepository";
 import { IClientRepository } from "../../modules/client/repositories/IClientRepository";
+import { IEmployeeRepository } from "../../modules/employee/repositories/IEmployeeRepository";
+import { EmployeeRepository } from "../../modules/employee/infra/repositories/EmployeeRepository";
 import { EstablishmentRepository } from "../../modules/establishment/infra/repositories/EstablishmentRepository";
 import { IEstablishmentRepository } from "../../modules/establishment/repositories/IEstablishmentRepository";
 import { OwnerRepository } from "../../modules/owner/infra/repositories/OwnerRepository";
@@ -26,4 +28,9 @@ container.registerSingleton<IClientRepository>(
 container.registerSingleton<IEstablishmentRepository>(
     "EstablishmentRepository",
     EstablishmentRepository
+)
+
+container.registerSingleton<IEmployeeRepository>(
+    "EmployeeRepository",
+    EmployeeRepository
 )
