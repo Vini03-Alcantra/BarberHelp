@@ -11,6 +11,8 @@ import { OwnerRepository } from "../../modules/owner/infra/repositories/OwnerRep
 import { IOwnerRepository } from "../../modules/owner/repositories/IOwnerRepository";
 import { IServicesRepository } from "../../modules/services/repositories/IServicesRepository";
 import { ServiceRepository } from "../../modules/services/infra/repositories/ServiceRepository"
+import { IAddressClientRepository } from "../../modules/AddressClient/repositories/IAddressClientRepository";
+import { AddressClientRepository } from "../../modules/AddressClient/infra/AddressClientRepository";
 
 container.registerSingleton<IOwnerRepository>(
     "OwnerRepository",
@@ -20,6 +22,11 @@ container.registerSingleton<IOwnerRepository>(
 container.registerSingleton<IAddressRepository>(
     "AddressRepository",
     AddressRepository
+)
+
+container.registerSingleton<IAddressClientRepository>(
+    "AddressClientRepository",
+    AddressClientRepository
 )
 
 container.registerSingleton<IClientRepository>(
