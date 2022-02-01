@@ -35,8 +35,14 @@ class EmployeeRepository implements IEmployeeRepository {
         } catch (err) {
             console.log("Erro employee", err)
         }
-
     }
+
+    async read(): Promise<Employee[]> {
+        const employers = await prisma.employee.findMany()
+
+        return employers
+    }
+
     async findByCPF(cpf: string): Promise<Employee | null> {
         const employee = await prisma.employee.findFirst({
             where: { cpf }

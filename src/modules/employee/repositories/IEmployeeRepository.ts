@@ -8,6 +8,7 @@ interface IEmployeeRepository {
     findById(id: string): Promise<Employee | null>;
     delete(id: string): Promise<boolean>;
     update(user_id: string, data: ICreateEmployeeDTO): Promise<void>;
+    read(): Promise<Employee[]>
 }
 
 export { IEmployeeRepository }
