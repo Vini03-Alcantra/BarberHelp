@@ -4,7 +4,7 @@ import { DeleteServicesUseCase } from "./DeleteServicesUseCase"
 
 
 
-class DeleteAddressController {
+class DeleteServicesController {
     async handle(req: Request, res: Response) {
         const { id } = req.body;
 
@@ -25,4 +25,4 @@ class DeleteAddressController {
 
 }
 
-export { DeleteAddressController }
+export { DeleteServicesController }
