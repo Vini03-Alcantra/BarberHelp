@@ -9,6 +9,8 @@ import { EstablishmentRepository } from "../../modules/establishment/infra/repos
 import { IEstablishmentRepository } from "../../modules/establishment/repositories/IEstablishmentRepository";
 import { OwnerRepository } from "../../modules/owner/infra/repositories/OwnerRepository";
 import { IOwnerRepository } from "../../modules/owner/repositories/IOwnerRepository";
+import { IServicesRepository } from "../../modules/services/repositories/IServicesRepository";
+import { ServiceRepository } from "../../modules/services/infra/repositories/ServiceRepository"
 
 container.registerSingleton<IOwnerRepository>(
     "OwnerRepository",
@@ -33,4 +35,9 @@ container.registerSingleton<IEstablishmentRepository>(
 container.registerSingleton<IEmployeeRepository>(
     "EmployeeRepository",
     EmployeeRepository
+)
+
+container.registerSingleton<IServicesRepository>(
+    "ServiceRepository",
+    ServiceRepository
 )
