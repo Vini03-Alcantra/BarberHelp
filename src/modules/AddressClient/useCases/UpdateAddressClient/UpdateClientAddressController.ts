@@ -1,16 +1,16 @@
 import { Request, Response } from "express"
 import { container } from "tsyringe"
 
-import { UpdateAddressUseCase } from "./UpdateClientAddressUseCase"
+import { UpdateAddressClientUseCase } from "./UpdateClientAddressUseCase"
 
 class UpdateAddressController {
     async handle(req: Request, res: Response) {
         const { id, street, number_address, complement, neighborhood, city, state, cep, reference_point } = req.body;
 
-        const updateAddressController = container.resolve(UpdateAddressUseCase)
+        const updateAddressClientController = container.resolve(UpdateAddressClientUseCase)
 
         try {
-            await updateAddressController.execute(
+            await updateAddressClientController.execute(
                 id,
                 {
                     street,

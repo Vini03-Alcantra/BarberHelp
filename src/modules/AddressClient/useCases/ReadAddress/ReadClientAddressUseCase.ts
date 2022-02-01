@@ -1,18 +1,19 @@
 import { inject, injectable } from "tsyringe";
-import { IAddressRepository } from "../../repositories/IAddressRepository";
+import { IAddressClientRepository } from "../../repositories/IAddressClientRepository";
+
 
 @injectable()
-class ReadAddressUseCase {
+class ReadAddressClientUseCase {
     constructor(
-        @inject("AddressRepository")
-        private addressRepository: IAddressRepository
+        @inject("AddressClientRepository")
+        private addressClientRepository: IAddressClientRepository
     ) { }
 
     async execute(id: string) {
-        const address = this.addressRepository.findById(id)
+        const address = this.addressClientRepository.findById(id)
 
         return address
     }
 }
 
-export { ReadAddressUseCase }
+export { ReadAddressClientUseCase }

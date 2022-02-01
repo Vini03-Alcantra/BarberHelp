@@ -4,10 +4,10 @@ import { IAddressClientRepository } from "../../repositories/IAddressClientRepos
 import { ICreateAddressClientDTO } from "../../dtos/ICreateAddressClientDTO";
 
 @injectable()
-class UpdateAddressUseCase {
+class UpdateAddressClientUseCase {
     constructor(
-        @inject("AddressRepository")
-        private addressRepository: IAddressClientRepository
+        @inject("AddressClientRepository")
+        private addressClientRepository: IAddressClientRepository
     ) { }
     async execute(
         id: string,
@@ -22,7 +22,7 @@ class UpdateAddressUseCase {
             reference_point
         }: ICreateAddressClientDTO
     ) {
-        await this.addressRepository.update(
+        await this.addressClientRepository.update(
             id,
             {
                 street,
@@ -38,4 +38,4 @@ class UpdateAddressUseCase {
     }
 }
 
-export { UpdateAddressUseCase }
+export { UpdateAddressClientUseCase }
