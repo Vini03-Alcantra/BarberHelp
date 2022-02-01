@@ -1,6 +1,6 @@
 import { Response, Request } from "express"
 import { container } from "tsyringe"
-import { DeleteAddressUseCase } from "./DeleteAddressUseCase"
+import { DeleteServicesUseCase } from "./DeleteServicesUseCase"
 
 
 
@@ -8,17 +8,17 @@ class DeleteAddressController {
     async handle(req: Request, res: Response) {
         const { id } = req.body;
 
-        const deleteAddressUseCase = container.resolve(DeleteAddressUseCase)
+        const deleteServiceUseCase = container.resolve(DeleteServicesUseCase)
 
         try {
-            const result = await deleteAddressUseCase.execute(id)
+            const result = await deleteServiceUseCase.execute(id)
             if (!result) {
                 return res.status(401).json({ "msg": "ID não encontrado" })
             }
 
-            return res.status(201).json({ "msg": "Address deleted success" })
+            return res.status(201).json({ "msg": "Service deleted success" })
         } catch (error) {
-            return res.status(500).json({ "msg": "Don't possibel deleted address" })
+            return res.status(500).json({ "msg": "Don't possibel deleted service" })
         }
 
     }
