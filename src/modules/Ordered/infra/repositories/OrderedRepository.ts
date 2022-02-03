@@ -52,29 +52,43 @@ class OrderedRepository implements IOrderedRepository {
         return true
     }
 
-    async update(user_id: string, {
-        appointment,
-        fk_client_id,
-        fk_establishment_id,
-        fk_employee_id
-    }: ICreateOrderedDTO): Promise<void> {
+    async update(
+        user_id: string,
+        service_id: string,
+        {
+            appointment,
+            fk_client_id,
+            fk_establishment_id,
+            fk_employee_id
+        }: ICreateOrderedDTO): Promise<boolean> {
         const result = await this.findById(user_id)
 
         if (!(result)) {
-            return
+            return false
         }
 
-        await prisma.ordered.update({
+        const updateOrdered = await prisma.ordered.update({
             where: {
                 id: user_id
             },
             data: {
+                ordered_Services: {
+                    connect: {
+                        id: service_id
+                    }
+                },
                 appointment,
                 fk_client_id,
                 fk_establishment_id,
                 fk_employee_id
             }
         })
+
+        if (!(updateOrdered)) {
+            return false
+        }
+
+        return true
     }
 
 
