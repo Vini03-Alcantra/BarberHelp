@@ -35,7 +35,6 @@ class AddressRepository implements IAddressRepository {
 
     }
 
-
     async findById(id: string): Promise<Address | null> {
         const address = await prisma.address.findFirst({
             where: { id }
@@ -43,6 +42,7 @@ class AddressRepository implements IAddressRepository {
 
         return address
     }
+
     async update(address_id: string, {
         street,
         number_address,
