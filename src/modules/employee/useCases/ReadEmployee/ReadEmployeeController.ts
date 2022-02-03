@@ -8,9 +8,9 @@ class ReadEmployeeController {
         const Employee = container.resolve(ReadEmployeeUseCase)
 
         try {
-            await Employee.execute()
+            const employes = await Employee.execute()
 
-            return res.status(201).json({ "msg": "Client Created success" })
+            return res.status(201).json({ employes })
         } catch (error) {
             return res.status(500).json({ "msg": "Don't possibel created Client" })
         }
