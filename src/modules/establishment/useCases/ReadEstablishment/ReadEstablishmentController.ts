@@ -9,7 +9,7 @@ class ReadEstablishmentController {
 
         const Establishment = container.resolve(ReadEstablishmentUseCase)
 
-        const result = Establishment.execute(id)
+        const result = await Establishment.execute(id)
 
         try {
 

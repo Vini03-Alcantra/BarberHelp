@@ -23,9 +23,9 @@ class CreateEstablishmentController {
                     ReturnHourLunch
                 }
             )
-            return res.status(201).json({ "msg": "Client Created success" })
+            return res.status(201).json({ "msg": "Client Establishment success" })
         } catch (error) {
-            return res.status(500).json({ "msg": "Don't possibel created Client" })
+            return res.status(500).json({ "msg": "Don't possibel created Establishment" })
         }
     }
 }

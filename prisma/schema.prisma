@@ -65,8 +65,8 @@ model Establishment {
   email_contact     String     @unique
   start_hour        String
   end_hour          String
-  stop_hour_lunch   String
-  return_hour_lunch String
+  stop_hour_lunch   String?
+  return_hour_lunch String?
   register_system   DateTime   @default(now())
   Owner             Owner      @relation(fields: [fk_owner_id], references: [id])
   fk_owner_id       String
@@ -75,7 +75,7 @@ model Establishment {
   employee          Employee[]
   services          Services[]
   ordered           Ordered[]
-  created_at        DateTime   @default(now())
+  updated_at        DateTime   @default(now())
 
   @@map("establishment")
 }

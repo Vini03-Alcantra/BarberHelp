@@ -10,7 +10,7 @@ class ReadAddressClientUseCase {
     ) { }
 
     async execute(id: string) {
-        const address = this.addressClientRepository.findById(id)
+        const address = await this.addressClientRepository.findById(id)
 
         return address
     }

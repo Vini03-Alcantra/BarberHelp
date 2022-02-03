@@ -15,25 +15,31 @@ class EstablishmentRepository implements IEstablishmentRepository {
         ReturnHourLunch,
     }: ICreateEstablishmentDTO
     ): Promise<void> {
-        await prisma.establishment.create({
-            data: {
-                name,
-                phoneContact: phone,
-                email_contact: email,
-                start_hour: StartHour,
-                end_hour: EndHour,
-                stop_hour_lunch: StopHourLunch,
-                return_hour_lunch: ReturnHourLunch,
-                fk_id_address: fk_id_address,
-                fk_owner_id: fk_id_owner,
-            }
-        })
+        try {
+            console.log(fk_id_address, fk_id_owner)
+
+            const result = await prisma.establishment.create({
+                data: {
+                    name,
+                    phoneContact: phone,
+                    email_contact: email,
+                    start_hour: StartHour,
+                    end_hour: EndHour,
+                    stop_hour_lunch: StopHourLunch,
+                    return_hour_lunch: ReturnHourLunch,
+                    fk_owner_id: fk_id_owner,
+                    fk_id_address: fk_id_address,
+                }
+            })
+            console.log(result)
+        } catch (err) {
+            console.error(err)
+        }
     }
+
     async findById(id: string): Promise<Establishment | null> {
         const establishment = await prisma.establishment.findFirst({
-            where: {
-                id
-            }
+            where: { id }
         })
 
         return establishment
