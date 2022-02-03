@@ -1,4 +1,4 @@
-import { Client, Owner, PrismaClient } from "@prisma/client";
+import { Client, PrismaClient } from "@prisma/client";
 import { compare } from "bcrypt";
 import { ICreateClientDTO } from "../dtos/ICreateClient";
 import { IClientRepository } from "../repositories/IClientRepository";
@@ -17,14 +17,6 @@ class ClientRepository implements IClientRepository {
             phoneNumber,
             password,
         }: ICreateClientDTO): Promise<void> {
-        console.log(nome,
-            email,
-            cpf,
-            birthday,
-            phoneNumber,
-            password,
-            id_address
-        )
         const result = await prisma.client.create({
             data: {
                 nome: nome,

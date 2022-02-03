@@ -99,6 +99,8 @@ model Client {
 model Employee {
   id                  String        @id @default(uuid())
   nome                String
+  email               String        @unique
+  phoneNumber         String        @unique
   cpf                 String        @unique
   birthday            String
   start_hour          String
@@ -122,6 +124,7 @@ model Services {
   establishment       Establishment      @relation(fields: [fk_establishment_id], references: [id])
   ordered_Services    Ordered_Services[]
   created_at          DateTime           @default(now())
+  updated_at          DateTime           @default(now())
 }
 
 model Ordered {
@@ -136,6 +139,7 @@ model Ordered {
   employee            Employee           @relation(fields: [fk_employee_id], references: [id])
   ordered_Services    Ordered_Services[]
   created_at          DateTime           @default(now())
+  updated_at          DateTime           @default(now())
 }
 
 model Ordered_Services {
