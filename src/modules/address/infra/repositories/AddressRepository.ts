@@ -53,28 +53,28 @@ class AddressRepository implements IAddressRepository {
         cep,
         reference_point
     }: ICreateAddressDTO): Promise<void> {
-        const address = await prisma.address.update({
-            where: {
-                id: address_id
-            },
-            data: {
-                street,
-                number_address,
-                complement,
-                neighborhood,
-                city,
-                state,
-                cep,
-                reference_point,
-                updated_at: new Date()
-            }
-        })
+        try {
+            const address = await prisma.address.update({
+                where: {
+                    id: address_id
+                },
+                data: {
+                    street,
+                    number_address,
+                    complement,
+                    neighborhood,
+                    city,
+                    state,
+                    cep,
+                    reference_point,
+                    updated_at: new Date()
+                }
+            })
 
-        if (!(address)) {
-            return
+            console.log(address)
+        } catch (err) {
+            console.error(err)
         }
-
-
 
     }
 

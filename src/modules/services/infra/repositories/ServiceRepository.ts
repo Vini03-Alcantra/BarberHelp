@@ -82,7 +82,7 @@ class ServiceRepository implements IServicesRepository {
             return false
         }
 
-        const serviceDeleted = await prisma.address.delete({
+        const serviceDeleted = await prisma.services.delete({
             where: { id }
         })
 

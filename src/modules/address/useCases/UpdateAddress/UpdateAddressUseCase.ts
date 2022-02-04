@@ -1,13 +1,13 @@
 import { inject, injectable } from "tsyringe";
 
-import { IAddressRepository } from "../../repositories/IAddressRepository";
 import { ICreateAddressDTO } from "../../dtos/ICreateAddressDTO";
+import { IAddressClientRepository } from "../../../AddressClient/repositories/IAddressClientRepository";
 
 @injectable()
 class UpdateAddressUseCase {
     constructor(
-        @inject("AddressRepository")
-        private addressRepository: IAddressRepository
+        @inject("AddressClientRepository")
+        private addressClientRepository: IAddressClientRepository
     ) { }
     async execute(
         id: string,
@@ -22,7 +22,7 @@ class UpdateAddressUseCase {
             reference_point
         }: ICreateAddressDTO
     ) {
-        await this.addressRepository.update(
+        await this.addressClientRepository.update(
             id,
             {
                 street,

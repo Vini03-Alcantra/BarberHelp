@@ -11,6 +11,7 @@ class DeleteAddressClientUseCase {
     ) { }
 
     async execute(id: string) {
+        console.log(id)
         const addressDeleted = await this.addressClientRepository.delete(id)
 
         return addressDeleted;

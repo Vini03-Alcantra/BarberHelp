@@ -21,9 +21,9 @@ class UpdateServiceController {
                     establishment
                 })
 
-            return res.status(201).json({ "msg": "Service Created success" })
+            return res.status(201).json({ "msg": "Service Updated success" })
         } catch (error) {
-            return res.status(500).json({ "msg": "Don't possibel created service" })
+            return res.status(500).json({ "msg": "Don't possibel updated service" })
         }
     }
 }

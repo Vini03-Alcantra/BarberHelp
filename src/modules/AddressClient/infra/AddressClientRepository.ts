@@ -43,6 +43,7 @@ class AddressClientRepository implements IAddressClientRepository {
 
         return address
     }
+
     async update(address_id: string, {
         street,
         number_address,
@@ -87,15 +88,20 @@ class AddressClientRepository implements IAddressClientRepository {
             return false
         }
 
-        const addressDeleted = await prisma.addressClient.delete({
-            where: { id }
-        })
+        try {
+            const addressDeleted = await prisma.addressClient.delete({
+                where: { id }
+            })
+            console.log(addressDeleted)
 
-        if (!(addressDeleted)) {
+            return true
+        } catch (err) {
+            console.log(err)
+
             return false
         }
 
-        return true
+
     }
 }
 

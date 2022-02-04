@@ -12,7 +12,7 @@ class DeleteAddressClientController {
 
         try {
             const result = await deleteAddressClientUseCase.execute(id)
-            if (!result) {
+            if (!(result)) {
                 return res.status(401).json({ "msg": "ID não encontrado" })
             }
 

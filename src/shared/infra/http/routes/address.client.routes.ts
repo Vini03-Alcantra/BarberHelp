@@ -2,13 +2,13 @@ import { Router } from "express";
 
 import { CreateAddressClientController } from "../../../../modules/AddressClient/useCases/CreateAddressClient/CreateAddressClientController";
 import { ReadAddressClientController } from "../../../../modules/AddressClient/useCases/ReadAddress/ReadClientAddressController";
-import { UpdateAddressController } from "../../../../modules/address/useCases/UpdateAddress/UpdateAddressController";
-import { DeleteAddressController } from "../../../../modules/address/useCases/DeleteAddress/DeleteAddressController";
+import { UpdateAddressController } from "../../../../modules/AddressClient/useCases/UpdateAddressClient/UpdateClientAddressController";
+import { DeleteAddressClientController } from "../../../../modules/AddressClient/useCases/DeleteAddress/DeleteClientAddressController";
 
 const createAddressClientController = new CreateAddressClientController()
 const readAddressClientController = new ReadAddressClientController()
 const updateAddressController = new UpdateAddressController()
-const deleteAddressController = new DeleteAddressController()
+const deleteAddressController = new DeleteAddressClientController()
 
 const addressClientRouter = Router()
 
