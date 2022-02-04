@@ -34,9 +34,9 @@ class CreateEmployeeController {
                     return_hour_lunch
                 }
             )
-            return res.status(201).json({ "msg": "Client Created success" })
+            return res.status(201).json({ "msg": "Employee Created success" })
         } catch (error) {
-            return res.status(500).json({ "msg": "Don't possibel created Client" })
+            return res.status(500).json({ "msg": "Don't possibel created Employee" })
         }
     }
 }

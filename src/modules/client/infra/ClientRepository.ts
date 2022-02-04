@@ -17,18 +17,22 @@ class ClientRepository implements IClientRepository {
             phoneNumber,
             password,
         }: ICreateClientDTO): Promise<void> {
-        const result = await prisma.client.create({
-            data: {
-                nome: nome,
-                email: email,
-                cpf: cpf,
-                phoneNumber: phoneNumber,
-                birthday: birthday,
-                password: password,
-                fk_id_address: id_address
-            }
-        })
-        console.log(result)
+        try {
+            const result = await prisma.client.create({
+                data: {
+                    nome: nome,
+                    email: email,
+                    cpf: cpf,
+                    phoneNumber: phoneNumber,
+                    birthday: birthday,
+                    password: password,
+                    fk_id_address: id_address
+                }
+            })
+            console.log(result)
+        } catch (err) {
+            console.error(err)
+        }
     }
 
     async findByCPF(cpf: string): Promise<Client | null> {

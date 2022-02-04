@@ -129,7 +129,7 @@ model Services {
 
 model Ordered {
   id                  String             @id @default(uuid())
-  appointment         DateTime
+  appointment         String
   appointmentNow      DateTime           @default(now())
   fk_client_id        String
   client              Client             @relation(fields: [fk_client_id], references: [id])

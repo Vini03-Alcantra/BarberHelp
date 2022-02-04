@@ -22,8 +22,8 @@ class CreateEstablishmentUseCase {
             ReturnHourLunch
         }: ICreateEstablishmentDTO) {
         await this.establishmentRepository.create(
-            fk_id_owner,
             fk_id_address,
+            fk_id_owner,
             {
                 name,
                 phone,
