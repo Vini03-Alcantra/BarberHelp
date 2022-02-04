@@ -16,9 +16,7 @@ class EstablishmentRepository implements IEstablishmentRepository {
     }: ICreateEstablishmentDTO
     ): Promise<void> {
         try {
-            console.log(fk_id_address, fk_id_owner)
-
-            const result = await prisma.establishment.create({
+            await prisma.establishment.create({
                 data: {
                     name,
                     phoneContact: phone,
@@ -31,9 +29,9 @@ class EstablishmentRepository implements IEstablishmentRepository {
                     fk_id_address: fk_id_address,
                 }
             })
-            console.log(result)
+
         } catch (err) {
-            console.error(err)
+            console.log(err)
         }
     }
 

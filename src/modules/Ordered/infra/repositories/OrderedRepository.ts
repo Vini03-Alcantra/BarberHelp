@@ -14,8 +14,12 @@ class OrderedRepository implements IOrderedRepository {
         await prisma.ordered.create({
             data: {
                 ordered_Services: {
-                    connect: {
-                        id: service_id
+                    create: {
+                        service: {
+                            connect: {
+                                id: service_id
+                            }
+                        }
                     }
                 },
                 appointment,
