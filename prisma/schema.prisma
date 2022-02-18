@@ -14,10 +14,9 @@ model Owner {
   birthday        String
   email           String          @unique
   phoneNumber     String
-  register_system DateTime        @default(now())
   password        String
   establishment   Establishment[]
-  created_at      DateTime        @default(now())
+  created_at      DateTime?        @default(now())
   updated_at      DateTime?       @default(now())
   lastLogin       DateTime?       @default(now())
 
@@ -36,7 +35,7 @@ model Address {
   reference_point String
   establishment   Establishment?
   updated_at      DateTime?      @default(now())
-  created_at      DateTime       @default(now())
+  created_at      DateTime?       @default(now())
 
   @@map("address")
 }
@@ -53,7 +52,7 @@ model AddressClient {
   cep             String
   client          Client?
   updated_at      DateTime? @default(now())
-  created_at      DateTime  @default(now())
+  created_at      DateTime?  @default(now())
 
   @@map("address_client")
 }
@@ -67,7 +66,6 @@ model Establishment {
   end_hour          String
   stop_hour_lunch   String?
   return_hour_lunch String?
-  register_system   DateTime   @default(now())
   Owner             Owner      @relation(fields: [fk_owner_id], references: [id])
   fk_owner_id       String
   Address           Address    @relation(fields: [fk_id_address], references: [id])
@@ -75,7 +73,8 @@ model Establishment {
   employee          Employee[]
   services          Services[]
   ordered           Ordered[]
-  updated_at        DateTime   @default(now())
+  created_at      DateTime?  @default(now())
+  updated_at        DateTime?   @default(now())
 
   @@map("establishment")
 }
@@ -85,7 +84,7 @@ model Client {
   nome          String
   email         String         @unique
   cpf           String         @unique
-  birthday      DateTime
+  birthday      String
   lastCut       DateTime?      @default(now())
   phoneNumber   String
   password      String
@@ -93,7 +92,7 @@ model Client {
   fk_id_address String?        @unique
   ordered       Ordered[]
   updated_at    DateTime?      @default(now())
-  created_at    DateTime       @default(now())
+  created_at    DateTime?       @default(now())
 }
 
 model Employee {
@@ -110,7 +109,8 @@ model Employee {
   fk_establishment_id String
   establishment       Establishment @relation(fields: [fk_establishment_id], references: [id])
   Ordered             Ordered[]
-  created_at          DateTime      @default(now())
+  created_at          DateTime?      @default(now())
+  updated_at    DateTime?      @default(now())
 }
 
 model Services {
@@ -123,14 +123,14 @@ model Services {
   fk_establishment_id String
   establishment       Establishment      @relation(fields: [fk_establishment_id], references: [id])
   ordered_Services    Ordered_Services[]
-  created_at          DateTime           @default(now())
-  updated_at          DateTime           @default(now())
+  created_at          DateTime?           @default(now())
+  updated_at          DateTime?           @default(now())
 }
 
 model Ordered {
   id                  String             @id @default(uuid())
   appointment         String
-  appointmentNow      DateTime           @default(now())
+  appointmentNow      DateTime?           @default(now())
   fk_client_id        String
   client              Client             @relation(fields: [fk_client_id], references: [id])
   fk_establishment_id String
@@ -138,8 +138,8 @@ model Ordered {
   fk_employee_id      String
   employee            Employee           @relation(fields: [fk_employee_id], references: [id])
   ordered_Services    Ordered_Services[]
-  created_at          DateTime           @default(now())
-  updated_at          DateTime           @default(now())
+  created_at          DateTime?           @default(now())
+  updated_at          DateTime ?          @default(now())
 }
 
 model Ordered_Services {

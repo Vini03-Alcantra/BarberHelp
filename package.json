@@ -6,6 +6,9 @@
   "scripts": {
     "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn ./src/shared/infra/http/server.ts"
   },
+  "prisma": {
+    "seed": "ts-node-dev ./prisma/seed.ts"
+  },
   "dependencies": {
     "@prisma/client": "3.8.1",
     "bcrypt": "^5.0.1",
