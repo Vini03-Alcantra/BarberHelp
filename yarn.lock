@@ -87,6 +87,13 @@
     "@types/qs" "*"
     "@types/serve-static" "*"
 
+"@types/http-status@^1.1.2":
+  "integrity" "sha512-GodZPvF3xPVglUx4q7s0plKu1cdW0mMLADpWi5PMMx3n/2xGB6GoKqQxQxp6A5xuARtZpQ9/6p3WDFwCpPaN8A=="
+  "resolved" "https://registry.npmjs.org/@types/http-status/-/http-status-1.1.2.tgz"
+  "version" "1.1.2"
+  dependencies:
+    "http-status" "*"
+
 "@types/jsonwebtoken@^8.5.8":
   "integrity" "sha512-zm6xBQpFDIDM6o9r6HSgDeIcLy82TKWctCXEPbJJcXb5AKmi5BNNdLXneixK4lplX3PqIVcwLBCGE/kAGnlD4A=="
   "resolved" "https://registry.npmjs.org/@types/jsonwebtoken/-/jsonwebtoken-8.5.8.tgz"
@@ -760,6 +767,11 @@
     "setprototypeof" "1.2.0"
     "statuses" ">= 1.5.0 < 2"
     "toidentifier" "1.0.1"
+
+"http-status@*", "http-status@^1.5.0":
+  "integrity" "sha512-wcGvY31MpFNHIkUcXHHnvrE4IKYlpvitJw5P/1u892gMBAM46muQ+RH7UN1d+Ntnfx5apnOnVY6vcLmrWHOLwg=="
+  "resolved" "https://registry.npmjs.org/http-status/-/http-status-1.5.0.tgz"
+  "version" "1.5.0"
 
 "https-proxy-agent@^5.0.0":
   "integrity" "sha512-EkYm5BcKUGiduxzSt3Eppko+PiNWNEpa4ySk9vTC6wDsQJW9rHSa+UhGNJoRYp7bz6Ht1eaRIa6QaJqO5rCFbA=="
