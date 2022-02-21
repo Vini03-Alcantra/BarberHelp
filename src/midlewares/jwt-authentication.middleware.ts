@@ -18,8 +18,7 @@ async function jwtAuthenticationMiddleware(req: Request, res: Response, next: Ne
         
         try {
             const tokenPayload = JWT.verify(token, 'my_secret_key');
-            console.log(tokenPayload)
-            console.log(token)
+            
             if (typeof tokenPayload !== 'object' || !tokenPayload.subject) {
                 throw new ForbiddenError('Token inválido')
             }

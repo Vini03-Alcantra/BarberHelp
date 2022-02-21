@@ -120,25 +120,28 @@ class OwnerRepository implements IOwnerRepository {
         })
     }
 
-    async findByEmailAndPassword(email: string, password: string): Promise<Owner> {
-        try {
+    async findByEmailAndPassword(email: string, password: string): Promise<Owner | null> {
+        try {            
             const owner = await prisma.owner.findFirst({
                 where: {email}
             })
-
+            
             if(!owner){
-                throw new Error("Email/Senha incorretos")
+                return null
             }
-        
-            bcrypt.compare(password, owner.password, (err, result) => {
-                if(err){
-                    throw new Error("Email/Senha incorretos")
-                }
-            })
 
+            //const passwordMatch = await bcrypt.compare(password, owner.password)
+            if(password !== owner.password) {
+                return null
+            }
+            
+
+            // console.log(passwordMatch)
+            // if(!(passwordMatch)) return null
             return owner
-        } catch (error) {
-            throw ("Operação inválida no momento")
+        } catch (err) {
+            console.error(err)
+            throw new Error("Operação inválida no momento")
         }
     }
 }

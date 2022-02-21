@@ -6,20 +6,14 @@ async function ownerAuthorizationMiddleware(req: Request, res: Response, next: N
     const ownerRepository = new OwnerRepository(); 
 
     try {
-        const authorizationHeader = req.headers['authorization']
-        console.log(authorizationHeader)
-        if(!authorizationHeader){
+        const {email, password} = req.body;
+        
+        if(!email || !password){
             throw new ForbiddenError("Credencias não informadas")
         }
-
-        const [authenticationType, token] = authorizationHeader.split(' ')
-        console.log(authenticationType)
-        const tokenContent = Buffer.from(token, 'base64').toString('utf-8');
-
-        const [username, password] = tokenContent.split(":")
-        console.log(username, password)
-        const owner = await ownerRepository.findByEmailAndPassword(username, password)
-        console.log(owner)
+        
+        const owner = await ownerRepository.findByEmailAndPassword(email, password)
+        
         if(!owner){
             throw new ForbiddenError('User or password invalids')
         }
@@ -28,7 +22,7 @@ async function ownerAuthorizationMiddleware(req: Request, res: Response, next: N
 
         req.user = {
             uuid: id,
-            username,
+            username: email,
             password
         }
 
