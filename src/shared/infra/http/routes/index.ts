@@ -8,10 +8,9 @@ import { employeeRouter } from "./employee.routes";
 import { servicesRouter } from "./services.routes";
 import { addressClientRouter } from "./address.client.routes";
 import { orderedRouter } from "./ordered.routes";
-
+import { authorizationRoute } from "./authorization.routes";
 
 const router = Router()
-
 
 router.use("/owner", ownerRouter)
 router.use("/address", addressRouter)
@@ -21,5 +20,6 @@ router.use("/employee", employeeRouter)
 router.use("/services", servicesRouter)
 router.use("/addressClient", addressClientRouter)
 router.use("/ordered", orderedRouter)
+router.use("/authorization", authorizationRoute)
 
 export { router }

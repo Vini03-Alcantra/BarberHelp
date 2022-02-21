@@ -8,7 +8,7 @@ interface IOwnerRepository {
     findById(id: string): Promise<Omit<ICreateOwnerDTO, "password"> | null>;
     delete(email: string, password: string): Promise<boolean>;
     update(user_id: string, data: Omit<ICreateOwnerDTO, "password">): Promise<void>;
-    findByEmailAndPassword(email: string, password: string): Promise<Owner>;
+    findByEmailAndPassword(email: String, password: String): Promise<Owner>;
 }
 
 export { IOwnerRepository }

@@ -127,12 +127,12 @@ class OwnerRepository implements IOwnerRepository {
             })
 
             if(!owner){
-                throw ("Email/Senha incorretos")
+                throw new Error("Email/Senha incorretos")
             }
         
             bcrypt.compare(password, owner.password, (err, result) => {
                 if(err){
-                    throw ("Email/Senha incorretos")
+                    throw new Error("Email/Senha incorretos")
                 }
             })
 

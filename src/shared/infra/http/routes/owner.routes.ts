@@ -16,4 +16,5 @@ ownerRouter.post("/", createOwnerController.handle)
 ownerRouter.delete("/", deleteOwnerController.handle)
 ownerRouter.patch("/", updateOwnerController.handle)
 ownerRouter.get("/", readOwnerController.handle)
+ownerRouter.post("/login", )
 export { ownerRouter }
