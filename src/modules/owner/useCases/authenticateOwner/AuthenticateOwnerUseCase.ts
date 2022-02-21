@@ -36,12 +36,10 @@ class AuthenticateOwnerUseCase {
             throw new Error("Email or password incorrect")
         }
         
-        console.log(password)
-        console.log(owner.password)
         // if(!passwordMatch){
         //     throw new Error("Email or password incorrect")
         // }
-        console.log("Vou procutrar até o fim")
+        
         const token = sign({}, "my_secret_key", {
             subject: owner.id,
             expiresIn: "1m"
