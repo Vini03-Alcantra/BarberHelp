@@ -9,9 +9,8 @@ async function ensureAuthenticated(
     req: Request,
     res: Response,
     next: NextFunction
-) {
-    try {
-        const authHeader = req.headers.authorization;
+) {    
+    const authHeader = req.headers.authorization;
 
     if(!authHeader){
         throw new Error("Token missing")
@@ -20,28 +19,20 @@ async function ensureAuthenticated(
     const [, token] = authHeader.split(' ')
 
     try {
-        // const {sub: user_id} = verify(
-        //     token,
-        //     'my_secret_key'            
-        // ) as IPayload;
-        const tokenPayoad = JWT.verify(token, 'my_secret_key')
-
-        if(typeof tokenPayoad !== 'object' || !tokenPayoad.subject){
-            throw new Error("Token missing")
-        }
+        const {sub: user_id} = JWT.verify(
+            token,
+            'my_secret_key'            
+        ) as IPayload;
 
         req.user = {
-            uuid: tokenPayoad.sub,
-            username: tokenPayoad.username
+            uuid: user_id,            
         }
 
         next()
     } catch (error) {
         throw new Error("Token missing")
     }
-    } catch (error) {
-        next(error)
-    }
+    
 }
 
 export {ensureAuthenticated}

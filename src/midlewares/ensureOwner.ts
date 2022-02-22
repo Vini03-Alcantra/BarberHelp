@@ -6,13 +6,14 @@ async function ensureOwner(
     res: Response,
     next: NextFunction
 ) {
-    const uuid = req.user?.uuid;
-
-    const ownerRepository = new OwnerRepository();
+    const uuid = req.user?.uuid;    
 
     if(!uuid){
         throw new Error("Owner invalids")
     }
+
+    const ownerRepository = new OwnerRepository();
+    
     const owner = await ownerRepository.findById(uuid);
 
     if (!owner) {
@@ -21,3 +22,5 @@ async function ensureOwner(
 
     return next()
 }
+
+export {ensureOwner}
