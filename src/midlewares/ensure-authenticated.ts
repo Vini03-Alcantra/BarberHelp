@@ -21,7 +21,7 @@ async function ensureAuthenticated(
     try {
         const {sub: user_id} = JWT.verify(
             token,
-            'my_secret_key'            
+            `${process.env.secret_auth_key}`            
         ) as IPayload;
 
         req.user = {

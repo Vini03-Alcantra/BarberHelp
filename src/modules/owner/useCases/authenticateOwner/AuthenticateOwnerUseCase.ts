@@ -40,9 +40,9 @@ class AuthenticateOwnerUseCase {
         //     throw new Error("Email or password incorrect")
         // }
         
-        const token = sign({}, "my_secret_key", {
+        const token = sign({}, `${process.env.secret_auth_key}`, {
             subject: owner.id,
-            expiresIn: "1m"
+            expiresIn: process.env.expires_in_token
         })
 
         const tokenReturn: IResponse = {
