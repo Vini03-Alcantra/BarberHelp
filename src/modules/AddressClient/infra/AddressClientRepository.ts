@@ -91,12 +91,11 @@ class AddressClientRepository implements IAddressClientRepository {
         try {
             const addressDeleted = await prisma.addressClient.delete({
                 where: { id }
-            })
-            console.log(addressDeleted)
+            })            
 
             return true
         } catch (err) {
-            console.log(err)
+            console.error(err)
 
             return false
         }

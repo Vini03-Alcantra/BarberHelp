@@ -23,7 +23,7 @@ class UpdateOrderedController {
 
             return res.status(201).json(result)
         } catch (error) {
-            console.log(error)
+            console.error(error)
 
             return res.status(403).json({ "msg": "Não foi possível realizar the update" })
         }

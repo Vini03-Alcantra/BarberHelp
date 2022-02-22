@@ -33,7 +33,7 @@ class EmployeeRepository implements IEmployeeRepository {
                 }
             })
         } catch (err) {
-            console.log("Erro employee", err)
+            console.error("Erro employee", err)
         }
     }
 

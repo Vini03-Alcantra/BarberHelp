@@ -31,7 +31,7 @@ class EstablishmentRepository implements IEstablishmentRepository {
             })
 
         } catch (err) {
-            console.log(err)
+            console.error(err)
         }
     }
 

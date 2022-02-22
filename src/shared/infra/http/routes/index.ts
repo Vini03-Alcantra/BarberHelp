@@ -8,18 +8,20 @@ import { employeeRouter } from "./employee.routes";
 import { servicesRouter } from "./services.routes";
 import { addressClientRouter } from "./address.client.routes";
 import { orderedRouter } from "./ordered.routes";
-
+import { authorizationRoute } from "./authorization.routes";
+import { ensureAuthenticated } from "../../../../midlewares/ensure-authenticated";
+import { ensureOwner } from "../../../../midlewares/ensureOwner";
 
 const router = Router()
 
-
 router.use("/owner", ownerRouter)
-router.use("/address", addressRouter)
-router.use("/client", clientRouter)
-router.use("/establishment", establishmentRouter)
-router.use("/employee", employeeRouter)
-router.use("/services", servicesRouter)
-router.use("/addressClient", addressClientRouter)
-router.use("/ordered", orderedRouter)
+router.use("/address", ensureAuthenticated, ensureOwner, addressRouter)
+router.use("/client", ensureAuthenticated, clientRouter)
+router.use("/establishment", ensureAuthenticated, establishmentRouter)
+router.use("/employee", ensureAuthenticated, ensureOwner, employeeRouter)
+router.use("/services", ensureAuthenticated, ensureOwner, servicesRouter)
+router.use("/addressClient", ensureAuthenticated, addressClientRouter)
+router.use("/ordered", ensureAuthenticated, orderedRouter)
+router.use("/authorization", authorizationRoute)
 
 export { router }

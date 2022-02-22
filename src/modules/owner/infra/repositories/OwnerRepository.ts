@@ -2,7 +2,7 @@ import { Owner, PrismaClient } from "@prisma/client";
 import { compare } from "bcrypt";
 import { ICreateOwnerDTO } from "../../dtos/ICreateOwnerDTO";
 import { IOwnerRepository } from "../../repositories/IOwnerRepository";
-
+import bcrypt from "bcrypt"
 const prisma = new PrismaClient()
 
 class OwnerRepository implements IOwnerRepository {
@@ -14,6 +14,7 @@ class OwnerRepository implements IOwnerRepository {
         phoneNumber,
         password
     }: ICreateOwnerDTO): Promise<void> {
+        const passwordHash = await bcrypt.hash(password, 10)
         await prisma.owner.create({
             data: {
                 nome: nome,
@@ -21,7 +22,7 @@ class OwnerRepository implements IOwnerRepository {
                 birthday: birthday,
                 email: email,
                 phoneNumber: phoneNumber,
-                password: password
+                password: passwordHash
             }
         })
     }
@@ -119,6 +120,30 @@ class OwnerRepository implements IOwnerRepository {
         })
     }
 
+    async findByEmailAndPassword(email: string, password: string): Promise<Owner | null> {
+        try {            
+            const owner = await prisma.owner.findFirst({
+                where: {email}
+            })
+            
+            if(!owner){
+                return null
+            }
+
+            //const passwordMatch = await bcrypt.compare(password, owner.password)
+            if(password !== owner.password) {
+                return null
+            }
+            
+
+            // console.log(passwordMatch)
+            // if(!(passwordMatch)) return null
+            return owner
+        } catch (err) {
+            console.error(err)
+            throw new Error("Operação inválida no momento")
+        }
+    }
 }
 
 export { OwnerRepository }

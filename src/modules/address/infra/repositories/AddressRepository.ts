@@ -70,8 +70,6 @@ class AddressRepository implements IAddressRepository {
                     updated_at: new Date()
                 }
             })
-
-            console.log(address)
         } catch (err) {
             console.error(err)
         }
