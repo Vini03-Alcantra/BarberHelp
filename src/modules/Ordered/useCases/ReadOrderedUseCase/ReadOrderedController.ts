@@ -12,7 +12,7 @@ class ReadOrderedController {
 
             return res.status(200).json({ ordereds })
         } catch (err) {
-            console.log("ReadOrdered", err)
+            console.error("ReadOrdered", err)
 
             return res.status(403).json({})
         }

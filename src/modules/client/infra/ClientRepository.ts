@@ -29,7 +29,6 @@ class ClientRepository implements IClientRepository {
                     fk_id_address: id_address
                 }
             })
-            console.log(result)
         } catch (err) {
             console.error(err)
         }
@@ -43,8 +42,12 @@ class ClientRepository implements IClientRepository {
         return client
     }
 
-    findByEmail(email: string): Promise<Client | null> {
-        throw new Error("Method not implemented.");
+    async findByEmail(email: string): Promise<Client | null> {
+        const client = await prisma.client.findFirst({
+            where: {email}
+        })
+
+        return client
     }
 
     async findById(id: string): Promise<Omit<ICreateClientDTO, "password"> | null> {
@@ -55,13 +58,10 @@ class ClientRepository implements IClientRepository {
         return client
     }
 
-    async delete(email: string, password: string): Promise<boolean> {
-        console.log(email)
+    async delete(email: string, password: string): Promise<boolean> {        
         const client = await prisma.client.findFirst({
             where: { email }
         })
-
-        console.log(client)
 
         if (!(client)) {
             return false
