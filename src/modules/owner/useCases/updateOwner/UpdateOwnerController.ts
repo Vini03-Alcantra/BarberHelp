@@ -21,7 +21,7 @@ class UpdateOwnerController {
                 }
             )
         } catch (err) {
-            console.error(err.message)
+            console.error(err)
 
             res.status(500).json({ "msg": "Não foi possível realizar a atualização" })
         }
