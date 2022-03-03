@@ -5,7 +5,13 @@ import { IClientRepository } from "../repositories/IClientRepository";
 
 const prisma = new PrismaClient()
 
-
+interface IResponseID {
+    nome: string;
+    email: string;
+    cpf: string;
+    birthday: string;
+    phoneNumber: string;
+}
 class ClientRepository implements IClientRepository {
     async create(
         id_address: string,
@@ -55,7 +61,19 @@ class ClientRepository implements IClientRepository {
             where: { id }
         })
 
-        return client
+        if(!client){
+            return null
+        }
+
+        const clientReturn: IResponseID = {
+            nome: client.nome,
+            email: client.email,
+            cpf: client.cpf,
+            birthday: client.birthday,
+            phoneNumber: client.phoneNumber,
+        }
+
+        return clientReturn
     }
 
     async delete(email: string, password: string): Promise<boolean> {        
