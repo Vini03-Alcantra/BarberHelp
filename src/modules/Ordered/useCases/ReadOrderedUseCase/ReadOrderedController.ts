@@ -4,9 +4,8 @@ import { ReadOrderedUseCase } from "./ReadOrderedUseCase"
 
 
 class ReadOrderedController {
-    async handle(req: Request, res: Response): Promise<Response> {
-        const readOrderedUseCase = container.resolve(ReadOrderedUseCase)
-
+    async handle(req: Request, res: Response): Promise<Response> {        
+        const readOrderedUseCase = container.resolve(ReadOrderedUseCase)        
         try {
             const ordereds = readOrderedUseCase.execute()
 
