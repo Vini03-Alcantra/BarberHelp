@@ -11,13 +11,13 @@ async function ensureAuthenticated(
     next: NextFunction
 ) {    
     const authHeader = req.headers.authorization;
-
+    
     if(!authHeader){
         throw new Error("Token missing")
     }
 
-    const [, token] = authHeader.split(' ')
-
+    const [token] = authHeader.split(' ')
+    console.log(token)
     try {
         const {sub: user_id} = JWT.verify(
             token,

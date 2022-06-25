@@ -12,7 +12,9 @@ const authenticateOwner = new AuthenticateOwnerController();
 const authenticateClientController = new AuthenticateClientController();
 
 authorizationRoute.post("/sessions/owner", authenticateOwner.handle);
+
 authorizationRoute.post("/sessions", authenticateClientController.handle)
+
 authorizationRoute.post("/token/validate", jwtAuthenticationMiddleware, async(req: Request, res: Response) => {
     res.sendStatus(status.OK)
 })

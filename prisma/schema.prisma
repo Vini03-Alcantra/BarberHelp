@@ -8,17 +8,17 @@ datasource db {
 }
 
 model Owner {
-  id              String          @id @default(uuid())
-  nome            String
-  cpf             String          @unique
-  birthday        String
-  email           String          @unique
-  phoneNumber     String
-  password        String
-  establishment   Establishment[]
-  created_at      DateTime?        @default(now())
-  updated_at      DateTime?       @default(now())
-  lastLogin       DateTime?       @default(now())
+  id            String          @id @default(uuid())
+  nome          String
+  cpf           String          @unique
+  birthday      String
+  email         String          @unique
+  phoneNumber   String
+  password      String
+  establishment Establishment[]
+  created_at    DateTime?       @default(now())
+  updated_at    DateTime?       @default(now())
+  lastLogin     DateTime?       @default(now())
 
   @@map("owner")
 }
@@ -35,7 +35,7 @@ model Address {
   reference_point String
   establishment   Establishment?
   updated_at      DateTime?      @default(now())
-  created_at      DateTime?       @default(now())
+  created_at      DateTime?      @default(now())
 
   @@map("address")
 }
@@ -52,7 +52,7 @@ model AddressClient {
   cep             String
   client          Client?
   updated_at      DateTime? @default(now())
-  created_at      DateTime?  @default(now())
+  created_at      DateTime? @default(now())
 
   @@map("address_client")
 }
@@ -73,8 +73,8 @@ model Establishment {
   employee          Employee[]
   services          Services[]
   ordered           Ordered[]
-  created_at      DateTime?  @default(now())
-  updated_at        DateTime?   @default(now())
+  created_at        DateTime?  @default(now())
+  updated_at        DateTime?  @default(now())
 
   @@map("establishment")
 }
@@ -92,7 +92,7 @@ model Client {
   fk_id_address String?        @unique
   ordered       Ordered[]
   updated_at    DateTime?      @default(now())
-  created_at    DateTime?       @default(now())
+  created_at    DateTime?      @default(now())
 }
 
 model Employee {
@@ -109,8 +109,8 @@ model Employee {
   fk_establishment_id String
   establishment       Establishment @relation(fields: [fk_establishment_id], references: [id])
   Ordered             Ordered[]
-  created_at          DateTime?      @default(now())
-  updated_at    DateTime?      @default(now())
+  created_at          DateTime?     @default(now())
+  updated_at          DateTime?     @default(now())
 }
 
 model Services {
@@ -123,14 +123,16 @@ model Services {
   fk_establishment_id String
   establishment       Establishment      @relation(fields: [fk_establishment_id], references: [id])
   ordered_Services    Ordered_Services[]
-  created_at          DateTime?           @default(now())
-  updated_at          DateTime?           @default(now())
+  created_at          DateTime?          @default(now())
+  updated_at          DateTime?          @default(now())
 }
 
 model Ordered {
   id                  String             @id @default(uuid())
   appointment         String
-  appointmentNow      DateTime?           @default(now())
+  appointmentNow      DateTime?          @default(now())
+  confirmed           Boolean            @default(false)
+  finish              Boolean            @default(false)
   fk_client_id        String
   client              Client             @relation(fields: [fk_client_id], references: [id])
   fk_establishment_id String
@@ -138,8 +140,8 @@ model Ordered {
   fk_employee_id      String
   employee            Employee           @relation(fields: [fk_employee_id], references: [id])
   ordered_Services    Ordered_Services[]
-  created_at          DateTime?           @default(now())
-  updated_at          DateTime ?          @default(now())
+  created_at          DateTime?          @default(now())
+  updated_at          DateTime?          @default(now())
 }
 
 model Ordered_Services {

@@ -4,7 +4,7 @@ interface ICreateServicesDTO {
     duration: number;
     price: number
     description: string
-    establishment: string
+    id_establishment: string
 }
 
 export { ICreateServicesDTO }

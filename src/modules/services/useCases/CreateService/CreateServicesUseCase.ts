@@ -15,7 +15,7 @@ class CreateServicesUseCase {
         duration,
         price,
         description,
-        establishment
+        id_establishment
     }: ICreateServicesDTO) {
         await this.serviceRepository.create({
             nome,
@@ -23,7 +23,7 @@ class CreateServicesUseCase {
             duration,
             price,
             description,
-            establishment
+            id_establishment
         })
     }
 }

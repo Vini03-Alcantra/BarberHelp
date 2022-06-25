@@ -4,7 +4,7 @@ import { CreateServicesUseCase } from "./CreateServicesUseCase";
 
 class CreateServicesController {
     async handle(req: Request, res: Response): Promise<Response> {
-        const { nome, type, duration, price, description, establishment } = req.body;
+        const { nome, type, duration, price, description, id_establishment } = req.body;
 
         const createServices = container.resolve(CreateServicesUseCase)
 
@@ -15,7 +15,7 @@ class CreateServicesController {
                 duration,
                 price,
                 description,
-                establishment
+                id_establishment
             })
 
             return res.status(201).json({ "msg": "Service Created success" })
