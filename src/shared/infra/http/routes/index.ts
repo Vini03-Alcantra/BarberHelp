@@ -14,6 +14,8 @@ import { ensureOwner } from "../../../../midlewares/ensureOwner";
 
 const router = Router()
 
+router.use("/authorization", authorizationRoute)
+
 router.use("/owner", ownerRouter)
 router.use("/address", ensureAuthenticated, ensureOwner, addressRouter)
 router.use("/client", ensureAuthenticated, clientRouter)
@@ -22,6 +24,6 @@ router.use("/employee", ensureAuthenticated, ensureOwner, employeeRouter)
 router.use("/services", ensureAuthenticated, ensureOwner, servicesRouter)
 router.use("/addressClient", ensureAuthenticated, addressClientRouter)
 router.use("/ordered", ensureAuthenticated, orderedRouter)
-router.use("/authorization", authorizationRoute)
+
 
 export { router }
