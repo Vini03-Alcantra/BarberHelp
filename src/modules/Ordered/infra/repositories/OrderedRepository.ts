@@ -4,7 +4,7 @@ import { IOrderedRepository } from "../../repositories/IOrderedRepository";
 
 const prisma = new PrismaClient()
 
-class OrderedRepository implements IOrderedRepository {    
+class OrderedRepository implements IOrderedRepository {
     async create(service_id: string, {
         appointment,
         fk_client_id,
@@ -107,6 +107,15 @@ class OrderedRepository implements IOrderedRepository {
             where: {id: idOrdereed},
             data: {
                 confirmed: true
+            }
+        })
+    }
+
+    async updateDone(idOrdered: string): Promise<void> {
+        await prisma.ordered.update({
+            where: {id: idOrdered},
+            data: {
+                finish: true
             }
         })
     }
