@@ -4,7 +4,7 @@ import { IServicesRepository } from "../../repositories/IServicesRepository";
 
 const prisma = new PrismaClient()
 
-class ServiceRepository implements IServicesRepository {
+class ServiceRepository implements IServicesRepository {    
     async create({
         nome,
         type,

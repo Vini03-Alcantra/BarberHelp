@@ -7,6 +7,7 @@ interface IOrderedRepository {
     delete(id: string): Promise<boolean>;
     update(user_id: string, service_id: string, data: ICreateOrderedDTO): Promise<boolean>;
     read(): Promise<Ordered[]>
+    updateConfirmed(idOrdereed: string): Promise<void>
 }
 
 export { IOrderedRepository }
