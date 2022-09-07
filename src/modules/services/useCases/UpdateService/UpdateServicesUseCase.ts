@@ -18,7 +18,7 @@ class UpdateServiceUseCase {
             duration,
             price,
             description,
-            establishment
+            id_establishment
         }: ICreateServicesDTO) {
         await this.serviceRepository.update(
             id,
@@ -28,7 +28,7 @@ class UpdateServiceUseCase {
                 duration,
                 price,
                 description,
-                establishment
+                id_establishment
             })
     }
 }

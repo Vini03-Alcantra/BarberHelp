@@ -11,7 +11,7 @@ class ServiceRepository implements IServicesRepository {
         duration,
         price,
         description,
-        establishment
+        id_establishment
     }: ICreateServicesDTO): Promise<void> {
         try {
             await prisma.services.create({
@@ -21,7 +21,7 @@ class ServiceRepository implements IServicesRepository {
                     duration,
                     price,
                     description,
-                    fk_establishment_id: establishment
+                    fk_establishment_id: id_establishment
                 }
             })
         } catch (error) {
@@ -51,7 +51,7 @@ class ServiceRepository implements IServicesRepository {
         duration,
         price,
         description,
-        establishment
+        id_establishment
     }: ICreateServicesDTO): Promise<void> {
         const services = await prisma.services.update({
             where: {
@@ -63,7 +63,7 @@ class ServiceRepository implements IServicesRepository {
                 duration,
                 price,
                 description,
-                fk_establishment_id: establishment,
+                fk_establishment_id: id_establishment,
                 updated_at: new Date()
             }
         })

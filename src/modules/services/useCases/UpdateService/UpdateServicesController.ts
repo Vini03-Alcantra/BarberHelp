@@ -5,7 +5,7 @@ import { UpdateServiceUseCase } from "./UpdateServicesUseCase"
 
 class UpdateServiceController {
     async handle(req: Request, res: Response): Promise<Response> {
-        const { id, nome, type, duration, price, description, establishment } = req.body;
+        const { id, nome, type, duration, price, description, id_establishment } = req.body;
 
         const updateService = container.resolve(UpdateServiceUseCase)
 
@@ -18,7 +18,7 @@ class UpdateServiceController {
                     duration,
                     price,
                     description,
-                    establishment
+                    id_establishment
                 })
 
             return res.status(201).json({ "msg": "Service Updated success" })
