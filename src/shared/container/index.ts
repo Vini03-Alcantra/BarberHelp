@@ -55,3 +55,7 @@ container.registerSingleton<IOrderedRepository>(
     "OrderedRepository",
     OrderedRepository
 )
+
+container.registerSingleton<>(
+    ""
+)

@@ -17,7 +17,7 @@ async function ensureAuthenticated(
     }
 
     const [token] = authHeader.split(' ')
-    console.log(token)
+    
     try {
         const {sub: user_id} = JWT.verify(
             token,

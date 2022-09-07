@@ -9,7 +9,7 @@ async function ensureOwner(
     const uuid = req.user?.uuid;    
 
     if(!uuid){
-        throw new Error("Owner invalids")
+        throw new Error("Owner invalid's")
     }
 
     const ownerRepository = new OwnerRepository();

@@ -18,4 +18,5 @@ establishmentRouter.delete("/", ensureOwner, deleteEstablishmentController.handl
 establishmentRouter.get("/", readEstablishmentController.handle)
 establishmentRouter.patch("/", ensureOwner, updateEstablishmentController.handle)
 
+
 export { establishmentRouter }

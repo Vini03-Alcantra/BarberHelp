@@ -5,6 +5,7 @@ import { IEstablishmentRepository } from "../../repositories/IEstablishmentRepos
 const prisma = new PrismaClient()
 
 class EstablishmentRepository implements IEstablishmentRepository {
+    
     async create(fk_id_address: string, fk_id_owner: string, {
         name,
         phone,
@@ -88,6 +89,16 @@ class EstablishmentRepository implements IEstablishmentRepository {
         }
 
         return true
+    }
+
+    async listEstablishmentByOwner(owner_id: string): Promise<Establishment[]> {
+        const establishments = await prisma.establishment.findMany({
+            where: {
+                fk_owner_id: owner_id
+            }
+        })
+
+        return establishments
     }
 
 }
