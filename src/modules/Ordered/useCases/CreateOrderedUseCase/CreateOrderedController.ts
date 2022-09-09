@@ -9,15 +9,13 @@ class CreateOrderedController {
         const createOrderedUseCase = container.resolve(CreateOrderedUseCase)
 
         try {
-            const result = createOrderedUseCase.execute(
+            const result = createOrderedUseCase.execute({
                 service_id,
-                {
-                    fk_client_id,
-                    fk_establishment_id,
-                    fk_employee_id,
-                    appointment
-                }
-            )
+                fk_client_id,
+                fk_establishment_id,
+                fk_employee_id,
+                appointment
+            })
 
             return res.status(201).json(result)
         } catch (error) {

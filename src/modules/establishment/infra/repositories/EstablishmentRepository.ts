@@ -10,7 +10,8 @@ class EstablishmentRepository implements IEstablishmentRepository {
 
     constructor(){
         this.providerDate = new DayjsDateProvider()
-    }
+    }    
+
     async create(fk_id_address: string, fk_id_owner: string, {
         name,
         phone,
@@ -106,9 +107,14 @@ class EstablishmentRepository implements IEstablishmentRepository {
         return establishments
     }
 
-    async listTodayTime(): Promise<string> {
+    async listTodayTime(idEstablishment: string): Promise<string> {
         await prisma.ordered.findMany({
-            where: {}
+            where: {
+                AND: [
+                    {fk_establishment_id: {equals: idEstablishment}},
+                    {appointment: {equals: this.providerDate.dateNow()}}
+                ]
+            }
         })
     }
 }

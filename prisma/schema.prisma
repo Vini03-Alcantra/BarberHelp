@@ -129,8 +129,8 @@ model Services {
 
 model Ordered {
   id                  String             @id @default(uuid())
-  appointment         String
-  appointmentNow      DateTime?          @default(now())
+  appointment         DateTime
+  closing_time        DateTime
   confirmed           Boolean            @default(false)
   finish              Boolean            @default(false)
   fk_client_id        String
