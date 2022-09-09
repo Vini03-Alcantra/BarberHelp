@@ -13,6 +13,11 @@ class DayjsDateProvider implements IDateProvider {
         return dayjs().toDate()
     }
 
+    convertFromDateToTime(date: Date, serviceDuration: number): Date {
+        let hourInit = new Date(date)
+        const hourClose = new Date(hourInit.getTime() + serviceDuration * 60 * 1000)
+        return hourClose
+    }
 }
 
 export {DayjsDateProvider}
