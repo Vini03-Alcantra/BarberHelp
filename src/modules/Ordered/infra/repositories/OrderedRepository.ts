@@ -5,7 +5,8 @@ import { IOrderedRepository } from "../../repositories/IOrderedRepository";
 const prisma = new PrismaClient()
 
 class OrderedRepository implements IOrderedRepository {
-    async create(service_id: string, {
+    async create({
+        service_id,
         appointment,
         fk_client_id,
         fk_establishment_id,

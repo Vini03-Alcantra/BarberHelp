@@ -8,6 +8,7 @@ interface IEstablishmentRepository {
     update(id: string, data: ICreateEstablishmentDTO): Promise<void>;
     delete(id: string): Promise<boolean>;
     listEstablishmentByOwner(owner_id: string): Promise<Establishment[]>
+    listTodayTime(): Promise<string>
 }
 
 export { IEstablishmentRepository }

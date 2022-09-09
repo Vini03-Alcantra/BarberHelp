@@ -1,11 +1,16 @@
 import { Establishment, PrismaClient } from "@prisma/client"
+import { DayjsDateProvider } from "../../../../shared/container/provider/DateProvider/implementations/DayjsDateProvider"
 import { ICreateEstablishmentDTO } from "../../dtos/ICreateEstablishmentDTO"
 import { IEstablishmentRepository } from "../../repositories/IEstablishmentRepository"
 
 const prisma = new PrismaClient()
 
 class EstablishmentRepository implements IEstablishmentRepository {
-    
+    private providerDate: DayjsDateProvider;
+
+    constructor(){
+        this.providerDate = new DayjsDateProvider()
+    }
     async create(fk_id_address: string, fk_id_owner: string, {
         name,
         phone,
@@ -101,6 +106,11 @@ class EstablishmentRepository implements IEstablishmentRepository {
         return establishments
     }
 
+    async listTodayTime(): Promise<string> {
+        await prisma.ordered.findMany({
+            where: {}
+        })
+    }
 }
 
 export { EstablishmentRepository }

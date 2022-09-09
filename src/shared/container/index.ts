@@ -1,4 +1,7 @@
 import { container } from "tsyringe";
+
+import "./provider"
+
 import { AddressRepository } from "../../modules/address/infra/repositories/AddressRepository";
 import { IAddressRepository } from "../../modules/address/repositories/IAddressRepository";
 import { ClientRepository } from "../../modules/client/infra/ClientRepository";
@@ -15,6 +18,7 @@ import { IAddressClientRepository } from "../../modules/AddressClient/repositori
 import { AddressClientRepository } from "../../modules/AddressClient/infra/AddressClientRepository";
 import { IOrderedRepository } from "../../modules/Ordered/repositories/IOrderedRepository";
 import { OrderedRepository } from "../../modules/Ordered/infra/repositories/OrderedRepository";
+
 
 container.registerSingleton<IOwnerRepository>(
     "OwnerRepository",
@@ -56,6 +60,3 @@ container.registerSingleton<IOrderedRepository>(
     OrderedRepository
 )
 
-container.registerSingleton<>(
-    ""
-)

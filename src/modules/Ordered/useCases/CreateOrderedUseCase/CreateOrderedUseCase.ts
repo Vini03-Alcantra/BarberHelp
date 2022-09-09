@@ -10,21 +10,20 @@ class CreateOrderedUseCase {
     ) { }
 
     async execute(
-        service_id: string,
         {
+            service_id,
             appointment,
             fk_client_id,
             fk_establishment_id,
             fk_employee_id,
         }: ICreateOrderedDTO) {
-        await this.orderedRepository.create(
-            service_id,
-            {
+        await this.orderedRepository.create({
+                service_id,
                 appointment,
                 fk_client_id,
                 fk_establishment_id,
                 fk_employee_id,
-            })
+        })
     }
 }
 
