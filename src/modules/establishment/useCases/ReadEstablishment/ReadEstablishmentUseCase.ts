@@ -1,5 +1,4 @@
 import { inject, injectable } from "tsyringe";
-import { ICreateEstablishmentDTO } from "../../dtos/ICreateEstablishmentDTO";
 import { IEstablishmentRepository } from "../../repositories/IEstablishmentRepository";
 
 @injectable()
