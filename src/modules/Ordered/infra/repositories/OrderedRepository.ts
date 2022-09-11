@@ -115,8 +115,12 @@ class OrderedRepository implements IOrderedRepository {
 
 
     async read(): Promise<Ordered[]> {
-        const result = await prisma.ordered.findMany()
-
+        const result = await prisma.ordered.findMany({
+            where: {
+                confirmed: true
+            }
+        })
+        
         return result
     }
 

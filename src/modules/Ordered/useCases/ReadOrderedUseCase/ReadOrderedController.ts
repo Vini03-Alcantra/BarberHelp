@@ -7,9 +7,9 @@ class ReadOrderedController {
     async handle(req: Request, res: Response): Promise<Response> {        
         const readOrderedUseCase = container.resolve(ReadOrderedUseCase)        
         try {
-            const ordereds = readOrderedUseCase.execute()
+            const ordereds = await readOrderedUseCase.execute()
 
-            return res.status(200).json({ ordereds })
+            return res.status(200).json( ordereds )
         } catch (err) {
             console.error("ReadOrdered", err)
 

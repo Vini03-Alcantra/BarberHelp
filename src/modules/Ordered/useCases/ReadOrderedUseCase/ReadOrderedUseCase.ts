@@ -9,8 +9,7 @@ class ReadOrderedUseCase {
         private orderedRepository: IOrderedRepository
     ) { }
 
-    async execute() {
-        console.log("Aquii")
+    async execute() {        
         const orderedes = await this.orderedRepository.read()
 
         return orderedes
