@@ -18,7 +18,7 @@ router.use("/authorization", authorizationRoute)
 
 router.use("/owner", ownerRouter)
 router.use("/address", ensureAuthenticated, ensureOwner, addressRouter)
-router.use("/client", ensureAuthenticated, clientRouter)
+router.use("/client", clientRouter)
 router.use("/establishment", ensureAuthenticated, establishmentRouter)
 router.use("/employee", ensureAuthenticated, ensureOwner, employeeRouter)
 router.use("/services", ensureAuthenticated, ensureOwner, servicesRouter)

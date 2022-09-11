@@ -6,7 +6,7 @@ import { IOrderedRepository } from "../../repositories/IOrderedRepository";
 class CreateOrderedUseCase {
     constructor(
         @inject("OrderedRepository")
-        private orderedRepository: IOrderedRepository
+        private orderedRepository: IOrderedRepository,        
     ) { }
 
     async execute(

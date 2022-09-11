@@ -17,7 +17,7 @@ class DayjsDateProvider implements IDateProvider {
         let hourInit = new Date(date)
         const hourClose = new Date(hourInit.getTime() + serviceDuration * 60 * 1000)
         return hourClose
-    }
+    }   
 }
 
 export {DayjsDateProvider}

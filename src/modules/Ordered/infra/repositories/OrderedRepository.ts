@@ -1,10 +1,17 @@
 import { Ordered, PrismaClient } from ".prisma/client";
+import { DayjsDateProvider } from "../../../../shared/container/provider/DateProvider/implementations/DayjsDateProvider";
 import { ICreateOrderedDTO } from "../../dtos/ICreateOrderedDTO";
 import { IOrderedRepository } from "../../repositories/IOrderedRepository";
 
 const prisma = new PrismaClient()
 
 class OrderedRepository implements IOrderedRepository {
+    private providerDate: DayjsDateProvider;
+    
+    constructor(){
+        this.providerDate = new DayjsDateProvider()
+    }
+
     async create({
         service_id,
         appointment,
@@ -12,6 +19,15 @@ class OrderedRepository implements IOrderedRepository {
         fk_establishment_id,
         fk_employee_id,
     }: ICreateOrderedDTO): Promise<void> {
+        const service = await prisma.services.findFirst({
+            where: {
+                id: service_id
+            }
+        })
+
+        const hourCloseTime = this.providerDate.convertFromDateToTime(appointment, service?.duration!)
+        const dateConvert = new Date(appointment)
+
         await prisma.ordered.create({
             data: {
                 ordered_Services: {
@@ -23,7 +39,8 @@ class OrderedRepository implements IOrderedRepository {
                         }
                     }
                 },
-                appointment,
+                appointment: dateConvert,
+                closing_time: hourCloseTime,
                 fk_client_id,
                 fk_establishment_id,
                 fk_employee_id
