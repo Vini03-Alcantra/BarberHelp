@@ -10,7 +10,7 @@ class OrderedRepository implements IOrderedRepository {
     
     constructor(){
         this.providerDate = new DayjsDateProvider()
-    }
+    }    
 
     async create({
         service_id,
@@ -118,7 +118,27 @@ class OrderedRepository implements IOrderedRepository {
         const result = await prisma.ordered.findMany({
             where: {
                 confirmed: true
-            }
+            },
+            orderBy: {appointment: 'desc'}
+        })
+        
+        return result
+    }
+
+    async readAllOrdereds(): Promise<Ordered[]> {
+        const result = await prisma.ordered.findMany({
+            orderBy: {appointment: 'desc'}
+        })
+        
+        return result
+    }
+
+    async readOnlyOrderedsFalse(): Promise<Ordered[]> {
+        const result = await prisma.ordered.findMany({
+            where: {
+                confirmed: false
+            },
+            orderBy: {appointment: 'desc'}
         })
         
         return result
