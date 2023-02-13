@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import JWT from 'jsonwebtoken'
+import { logger } from "../logger";
 import { ForbiddenError } from "./modelsMiddlewares/errors/forbidden.error.model";
 
 async function jwtAuthenticationMiddleware(req: Request, res: Response, next: NextFunction){
@@ -29,10 +30,11 @@ async function jwtAuthenticationMiddleware(req: Request, res: Response, next: Ne
 
             next();
         } catch (err) {
-            console.log(err)
-            throw new ForbiddenError("Operação Indisponível")
+            logger.error(err)            
+            throw new ForbiddenError("Unavailable operation")
         } 
     } catch (error) {
+        logger.error(error)
         next(error)   
     }
 }
