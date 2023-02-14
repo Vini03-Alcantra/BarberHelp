@@ -1,4 +1,5 @@
 import { Establishment, PrismaClient } from "@prisma/client"
+import { logger } from "../../../../logger"
 import { DayjsDateProvider } from "../../../../shared/container/provider/DateProvider/implementations/DayjsDateProvider"
 import { ICreateEstablishmentDTO } from "../../dtos/ICreateEstablishmentDTO"
 import { IEstablishmentRepository } from "../../repositories/IEstablishmentRepository"
@@ -37,17 +38,29 @@ class EstablishmentRepository implements IEstablishmentRepository {
                 }
             })
 
-        } catch (err) {
-            console.error(err)
+        } catch (error) {
+            logger.info(error)
+            if (error instanceof Error) {                
+                throw new Error(error.message)
+            }
+            throw new Error("Error")
         }
     }
 
     async findById(id: string): Promise<Establishment | null> {
-        const establishment = await prisma.establishment.findFirst({
-            where: { id }
-        })
-
-        return establishment
+        try {            
+            const establishment = await prisma.establishment.findFirst({
+                where: { id }
+            })
+    
+            return establishment
+        } catch (error) {
+            logger.info(error)
+            if (error instanceof Error) {                
+                throw new Error(error.message)
+            }
+            throw new Error("Error")
+        }
     }
 
     async update(id: string, {
@@ -59,64 +72,97 @@ class EstablishmentRepository implements IEstablishmentRepository {
         StopHourLunch,
         ReturnHourLunch
     }: ICreateEstablishmentDTO): Promise<void> {
-        const idEstablishment = await this.findById(id)
-
-        if (!(idEstablishment)) {
-            return
-        }
-
-        await prisma.establishment.update({
-            where: { id },
-            data: {
-                name,
-                phoneContact: phone,
-                email_contact: email,
-                start_hour: StartHour,
-                end_hour: EndHour,
-                stop_hour_lunch: StopHourLunch,
-                return_hour_lunch: ReturnHourLunch
+        try {
+            const idEstablishment = await this.findById(id)
+    
+            if (!(idEstablishment)) {
+                return
             }
-        })
+    
+            await prisma.establishment.update({
+                where: { id },
+                data: {
+                    name,
+                    phoneContact: phone,
+                    email_contact: email,
+                    start_hour: StartHour,
+                    end_hour: EndHour,
+                    stop_hour_lunch: StopHourLunch,
+                    return_hour_lunch: ReturnHourLunch
+                }
+            })            
+        } catch (error) {
+            logger.info(error)
+            if (error instanceof Error) {                
+                throw new Error(error.message)
+            }
+            throw new Error("Error")
+        }
     }
 
-    async delete(id: string): Promise<boolean> {
-        const establishmentId = await this.findById(id)
-
-        if (!(establishmentId)) {
-            return false
+    async delete(id: string): Promise<boolean> {        
+        try {
+            const establishmentId = await this.findById(id)
+    
+            if (!(establishmentId)) {
+                return false
+            }
+    
+            const result = await prisma.establishment.delete({
+                where: { id }
+            })
+    
+            if (!(result)) {
+                return false
+            }
+    
+            return true            
+        } catch (error) {
+            logger.info(error)
+            if (error instanceof Error) {                
+                throw new Error(error.message)
+            }
+            throw new Error("Error")
         }
-
-        const result = await prisma.establishment.delete({
-            where: { id }
-        })
-
-        if (!(result)) {
-            return false
-        }
-
-        return true
     }
 
     async listEstablishmentByOwner(owner_id: string): Promise<Establishment[]> {
-        const establishments = await prisma.establishment.findMany({
-            where: {
-                fk_owner_id: owner_id
+        try {
+            const establishments = await prisma.establishment.findMany({
+                where: {
+                    fk_owner_id: owner_id
+                }
+            })
+    
+            return establishments            
+        } catch (error) {
+            logger.info(error)
+            if (error instanceof Error) {                
+                throw new Error(error.message)
             }
-        })
-
-        return establishments
+            throw new Error("Error")
+        }
     }
 
-    async listTodayTime(idEstablishment: string): Promise<string> {
-        await prisma.ordered.findMany({
-            where: {
-                AND: [
-                    {fk_establishment_id: {equals: idEstablishment}},
-                    {appointment: {equals: this.providerDate.dateNow()}}
-                ]
-            }
-        })
-    }
+    // async listTodayTime(idEstablishment: string): Promise<string> {
+    //     try {
+    //         await prisma.ordered.findMany({
+    //             where: {
+    //                 AND: [
+    //                     {fk_establishment_id: {equals: idEstablishment}},
+    //                     {appointment: {equals: this.providerDate.dateNow()}}
+    //                 ]
+    //             }
+    //         })
+            
+    //     } catch (error) {
+    //         logger.info(error)
+    //         if (error instanceof Error) {                
+    //             throw new Error(error.message)
+    //         }
+    //         throw new Error("Error")
+    //     }
+    // }
 }
 
 export { EstablishmentRepository }

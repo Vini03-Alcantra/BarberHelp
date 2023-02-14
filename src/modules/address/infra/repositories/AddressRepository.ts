@@ -1,4 +1,5 @@
 import { Address, PrismaClient } from "@prisma/client";
+import { logger } from "../../../../logger";
 import { ICreateAddressDTO } from "../../dtos/ICreateAddressDTO";
 import { IAddressRepository } from "../../repositories/IAddressRepository";
 
@@ -29,18 +30,30 @@ class AddressRepository implements IAddressRepository {
                 }
             })
         } catch (error) {
-            console.error(error)
+            logger.info(error)
+            if (error instanceof Error) {                
+                throw new Error(error.message)
+            }
+            throw new Error("Error")
         }
 
 
     }
 
     async findById(id: string): Promise<Address | null> {
-        const address = await prisma.address.findFirst({
-            where: { id }
-        })
-
-        return address
+        try {
+            const address = await prisma.address.findFirst({
+                where: { id }
+            })
+    
+            return address            
+        } catch (error) {
+            logger.info(error)
+            if (error instanceof Error) {                
+                throw new Error(error.message)
+            }
+            throw new Error("Error")
+        }
     }
 
     async update(address_id: string, {
@@ -70,30 +83,42 @@ class AddressRepository implements IAddressRepository {
                     updated_at: new Date()
                 }
             })
-        } catch (err) {
-            console.error(err)
+        } catch (error) {
+            logger.info(error)
+            if (error instanceof Error) {                
+                throw new Error(error.message)
+            }
+            throw new Error("Error")
         }
 
     }
 
     async delete(id: string): Promise<boolean> {
-        const address = await prisma.address.findFirst({
-            where: { id }
-        })
-
-        if (!(address)) {
-            return false
+        try {
+            const address = await prisma.address.findFirst({
+                where: { id }
+            })
+    
+            if (!(address)) {
+                return false
+            }
+    
+            const addressDeleted = await prisma.address.delete({
+                where: { id }
+            })
+    
+            if (!(addressDeleted)) {
+                return false
+            }
+    
+            return true
+        }  catch (error) {
+            logger.info(error)
+            if (error instanceof Error) {                
+                throw new Error(error.message)
+            }
+            throw new Error("Error")
         }
-
-        const addressDeleted = await prisma.address.delete({
-            where: { id }
-        })
-
-        if (!(addressDeleted)) {
-            return false
-        }
-
-        return true
     }
 }
 

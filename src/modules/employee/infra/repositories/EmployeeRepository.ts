@@ -1,4 +1,5 @@
 import { Employee, PrismaClient } from "@prisma/client";
+import { logger } from "../../../../logger";
 import { ICreateEmployeeDTO } from "../../dtos/ICreateEmployeeDTO";
 import { IEmployeeRepository } from "../../repositories/IEmployeeRepository";
 
@@ -32,52 +33,97 @@ class EmployeeRepository implements IEmployeeRepository {
                     fk_establishment_id: id_establishment
                 }
             })
-        } catch (err) {
-            console.error("Erro employee", err)
+        } catch (error) {
+            logger.info(error)
+            if (error instanceof Error) {                
+                throw new Error(error.message)
+            }
+            throw new Error("Error")
         }
     }
 
-    async read(): Promise<Employee[]> {
-        const employers = await prisma.employee.findMany()
-
-        return employers
+    async read(): Promise<Employee[]> {        
+        try {
+            const employers = await prisma.employee.findMany()
+    
+            return employers            
+        } catch (error) {
+            logger.info(error)
+            if (error instanceof Error) {                
+                throw new Error(error.message)
+            }
+            throw new Error("Error")
+        }
     }
 
     async findByCPF(cpf: string): Promise<Employee | null> {
-        const employee = await prisma.employee.findFirst({
-            where: { cpf }
-        })
-
-        return employee
+        try {
+            const employee = await prisma.employee.findFirst({
+                where: { cpf }
+            })
+    
+            return employee            
+        } catch (error) {
+            logger.info(error)
+            if (error instanceof Error) {                
+                throw new Error(error.message)
+            }
+            throw new Error("Error")
+        }
     }
-    async findByEmail(email: string): Promise<Employee | null> {
-        const employee = await prisma.employee.findFirst({
-            where: { email }
-        })
 
-        return employee
+    async findByEmail(email: string): Promise<Employee | null> {
+        try {
+            const employee = await prisma.employee.findFirst({
+                where: { email }
+            })
+    
+            return employee            
+        } catch (error) {
+            logger.info(error)
+            if (error instanceof Error) {                
+                throw new Error(error.message)
+            }
+            throw new Error("Error")
+        }
     }
 
     async findById(id: string): Promise<Employee | null> {
-        const employee = await prisma.employee.findFirst({
-            where: { id }
-        })
-
-        return employee
+        try {
+            const employee = await prisma.employee.findFirst({
+                where: { id }
+            })
+    
+            return employee            
+        } catch (error) {
+            logger.info(error)
+            if (error instanceof Error) {                
+                throw new Error(error.message)
+            }
+            throw new Error("Error")
+        }
     }
 
     async delete(id: string): Promise<boolean> {
-        const employee = await this.findById(id)
-
-        if (!(employee)) {
-            return false
+        try {
+            const employee = await this.findById(id)
+    
+            if (!(employee)) {
+                return false
+            }
+    
+            await prisma.employee.delete({
+                where: { id }
+            })
+    
+            return true            
+        } catch (error) {
+            logger.info(error)
+            if (error instanceof Error) {                
+                throw new Error(error.message)
+            }
+            throw new Error("Error")
         }
-
-        await prisma.employee.delete({
-            where: { id }
-        })
-
-        return true
     }
 
     async update(user_id: string, {
@@ -91,29 +137,37 @@ class EmployeeRepository implements IEmployeeRepository {
         stop_hour_lunch,
         return_hour_lunch
     }: ICreateEmployeeDTO): Promise<void> {
-        const employee = await this.findById(user_id)
-
-        if (!(employee)) {
-            return
-        }
-
-        const result = await prisma.employee.update({
-            where: { id: user_id },
-            data: {
-                nome,
-                cpf,
-                email,
-                phoneNumber,
-                birthday,
-                start_hour,
-                end_hour,
-                stop_hour_lunch,
-                return_hour_lunch
+        try {
+            const employee = await this.findById(user_id)
+    
+            if (!(employee)) {
+                return
             }
-        })
-
-        if (!(result)) {
-            return
+    
+            const result = await prisma.employee.update({
+                where: { id: user_id },
+                data: {
+                    nome,
+                    cpf,
+                    email,
+                    phoneNumber,
+                    birthday,
+                    start_hour,
+                    end_hour,
+                    stop_hour_lunch,
+                    return_hour_lunch
+                }
+            })
+    
+            if (!(result)) {
+                return
+            }            
+        } catch (error) {
+            logger.info(error)
+            if (error instanceof Error) {                
+                throw new Error(error.message)
+            }
+            throw new Error("Error")
         }
     }
 

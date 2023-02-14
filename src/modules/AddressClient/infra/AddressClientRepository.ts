@@ -1,4 +1,5 @@
 import { Address, PrismaClient } from "@prisma/client";
+import { logger } from "../../../logger";
 import { ICreateAddressClientDTO } from "../dtos/ICreateAddressClientDTO";
 import { IAddressClientRepository } from "../repositories/IAddressClientRepository";
 
@@ -28,8 +29,12 @@ class AddressClientRepository implements IAddressClientRepository {
                     reference_point
                 }
             })
-        } catch (error) {
-            console.error(error)
+        }  catch (error) {
+            logger.info(error)
+            if (error instanceof Error) {                
+                throw new Error(error.message)
+            }
+            throw new Error("Error")
         }
 
 
@@ -37,11 +42,19 @@ class AddressClientRepository implements IAddressClientRepository {
 
 
     async findById(id: string): Promise<Address | null> {
-        const address = await prisma.addressClient.findFirst({
-            where: { id }
-        })
-
-        return address
+        try {
+            const address = await prisma.addressClient.findFirst({
+                where: { id }
+            })
+    
+            return address            
+        } catch (error) {
+            logger.info(error)
+            if (error instanceof Error) {                
+                throw new Error(error.message)
+            }
+            throw new Error("Error")
+        }
     }
 
     async update(address_id: string, {
@@ -53,54 +66,68 @@ class AddressClientRepository implements IAddressClientRepository {
         state,
         cep,
         reference_point
-    }: ICreateAddressClientDTO): Promise<void> {
-        const address = await prisma.addressClient.update({
-            where: {
-                id: address_id
-            },
-            data: {
-                street,
-                number_address,
-                complement,
-                neighborhood,
-                city,
-                state,
-                cep,
-                reference_point,
-                updated_at: new Date()
+    }: ICreateAddressClientDTO): Promise<void> {        
+        try {
+            const address = await prisma.addressClient.update({
+                where: {
+                    id: address_id
+                },
+                data: {
+                    street,
+                    number_address,
+                    complement,
+                    neighborhood,
+                    city,
+                    state,
+                    cep,
+                    reference_point,
+                    updated_at: new Date()
+                }
+            })
+    
+            if (!(address)) {
+                return
             }
-        })
-
-        if (!(address)) {
-            return
+            
+        } catch (error) {
+            logger.info(error)
+            if (error instanceof Error) {                
+                throw new Error(error.message)
+            }
+            throw new Error("Error")
         }
-
-
 
     }
 
     async delete(id: string): Promise<boolean> {
-        const address = await prisma.addressClient.findFirst({
-            where: { id }
-        })
-
-        if (!(address)) {
-            return false
-        }
-
+    
+    
         try {
+            const address = await prisma.addressClient.findFirst({
+                where: { id }
+            })
+        
+            if (!(address)) {
+                return false
+            }
             const addressDeleted = await prisma.addressClient.delete({
                 where: { id }
             })            
+    
+            if (!addressDeleted) {
+                return false
+            }
 
             return true
-        } catch (err) {
-            console.error(err)
-
-            return false
+            
+        } catch (error) {
+            logger.info(error)
+            if (error instanceof Error) {                
+                throw new Error(error.message)
+            }
+            throw new Error("Error")
         }
-
-
+    
     }
 }
 
